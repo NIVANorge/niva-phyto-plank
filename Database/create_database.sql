@@ -4,6 +4,8 @@ TEMPORARY TABLESPACE "TEMP";
 
 ALTER USER phytoplankton QUOTA UNLIMITED ON "APPDATA";
 
+CREATE ROLE cc_user;
+
 SET DEFINE OFF;
 
 CREATE TABLE phytoplankton.t_Lakes
@@ -17,7 +19,7 @@ CREATE TABLE phytoplankton.t_Lakes
     Mean_depth number,
     Max_depth number,
     Surface_area number,
-    Lake_type_New varchar2(255),
+    Lake_type varchar2(255),
     ICtypeID varchar2(255),
     Lake_type_code varchar2(255),
     Comments varchar2(255),
@@ -34,12 +36,13 @@ COMMENT ON COLUMN phytoplankton.t_Lakes.Altitude IS 'Hight above sea level';
 COMMENT ON COLUMN phytoplankton.t_Lakes.Mean_depth IS 'Mean depth of waterbody';
 COMMENT ON COLUMN phytoplankton.t_Lakes.Max_depth IS 'Max depth of waterbody';
 COMMENT ON COLUMN phytoplankton.t_Lakes.Surface_area IS 'Surface area of waterbody';
-COMMENT ON COLUMN phytoplankton.t_Lakes.Lake_type_New IS 'Lake type, New Norwegian system';
+COMMENT ON COLUMN phytoplankton.t_Lakes.Lake_type IS 'Lake type, New Norwegian system';
 COMMENT ON COLUMN phytoplankton.t_Lakes.ICtypeID IS 'Intercalibrated lake type, e.g. L-N1';
 COMMENT ON COLUMN phytoplankton.t_Lakes.Lake_type_code IS 'Lake type, Norwegian system, e.g. LEL23212';
 COMMENT ON COLUMN phytoplankton.t_Lakes.SMWF IS 'Modified waterbody';
 COMMENT ON COLUMN phytoplankton.t_Lakes.Country IS 'NO is Norwegian lake';
 
+GRANT SELECT,INSERT,UPDATE,DELETE ON phytoplankton.t_lakes TO cc_user;
 
 CREATE TABLE phytoplankton.t_Taxon_information
 (
@@ -62,6 +65,7 @@ COMMENT ON COLUMN phytoplankton.t_Taxon_information.Colony_structure IS 'Structu
 COMMENT ON COLUMN phytoplankton.t_Taxon_information.Person IS 'Person that added taxon';
 COMMENT ON COLUMN phytoplankton.t_Taxon_information.Date_registry IS 'Date taxon added';
 
+GRANT SELECT,INSERT,UPDATE,DELETE ON phytoplankton.t_Taxon_information TO cc_user;
 
 CREATE TABLE phytoplankton.t_Stations
 (
@@ -70,7 +74,7 @@ CREATE TABLE phytoplankton.t_Stations
     Station varchar2(255),
     Stasjonskode varchar2(255),
     St_code varchar2(255),
-    St_code_fag varchar2(8),
+    St_code_fag varchar2(10),
     Longitude number,
     Latitude number,
     Comments varchar2(255),
@@ -86,6 +90,8 @@ COMMENT ON COLUMN phytoplankton.t_Stations.St_code IS 'ID of the station in the 
 COMMENT ON COLUMN phytoplankton.t_Stations.St_code_fag IS 'Name of the station in the waterbody, from EUREGI, example: VESIAKE';
 COMMENT ON COLUMN phytoplankton.t_Stations.Longitude IS 'Longitude, decimal degree';
 COMMENT ON COLUMN phytoplankton.t_Stations.Latitude IS 'Latitude, decimal degree';
+
+GRANT SELECT,INSERT,UPDATE,DELETE ON phytoplankton.t_Stations TO cc_user;
 
 CREATE TABLE phytoplankton.t_Sample
 (
@@ -109,6 +115,8 @@ COMMENT ON COLUMN phytoplankton.t_Sample.Depth_1 IS 'Upper sample depth, for int
 COMMENT ON COLUMN phytoplankton.t_Sample.Depth_2 IS 'Lower sample depth';
 COMMENT ON COLUMN phytoplankton.t_Sample.Person IS 'Initials of the person counting the sample';
 COMMENT ON COLUMN phytoplankton.t_Sample."Comment" IS 'Comments';
+
+GRANT SELECT,INSERT,UPDATE,DELETE ON phytoplankton.t_Sample TO cc_user;
 
 CREATE TABLE phytoplankton.t_Phytoplankton
 (
@@ -148,4 +156,7 @@ COMMENT ON COLUMN phytoplankton.t_Phytoplankton.Counting_level IS 'Level of coun
 COMMENT ON COLUMN phytoplankton.t_Phytoplankton.Number_of_units IS 'Number of colonies';
 COMMENT ON COLUMN phytoplankton.t_Phytoplankton.Sample_type IS 'Quick analysis (R), Cyanobacteria (C), normal analysis (tom)';
 COMMENT ON COLUMN phytoplankton.t_Phytoplankton.Project_type IS 'Project type, surveillance monitoring, research project etc.';
+
+GRANT SELECT,INSERT,UPDATE,DELETE ON phytoplankton.t_Phytoplankton TO cc_user;
+
 SET DEFINE ON;
