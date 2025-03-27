@@ -159,4 +159,11 @@ COMMENT ON COLUMN phytoplankton.t_Phytoplankton.Project_type IS 'Project type, s
 
 GRANT SELECT,INSERT,UPDATE,DELETE ON phytoplankton.t_Phytoplankton TO cc_user;
 
+CALL niva_db_tools.pkg_db_tools.create_audits_table('PHYTOPLANKTON');
+CALL niva_db_tools.pkg_db_tools.create_sequence_and_triggers('PHYTOPLANKTON', 'T_LAKES');
+CALL niva_db_tools.pkg_db_tools.create_sequence_and_triggers('PHYTOPLANKTON', 'T_PHYTOPLANKTON');
+CALL niva_db_tools.pkg_db_tools.create_sequence_and_triggers('PHYTOPLANKTON', 'T_SAMPLE');
+CALL niva_db_tools.pkg_db_tools.create_sequence_and_triggers('PHYTOPLANKTON', 'T_STATIONS');
+CALL niva_db_tools.pkg_db_tools.create_sequence_and_triggers('PHYTOPLANKTON', 'T_TAXON_INFORMATION');
+
 SET DEFINE ON;
