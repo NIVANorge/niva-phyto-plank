@@ -54,6 +54,8 @@ CREATE TABLE phytoplankton.t_Taxon_information
     Colony_structure varchar2(255),
     Person varchar2(255),
     Date_registry date,
+    ENTERED_BY VARCHAR2(30 BYTE), 
+	ENTERED_DATE DATE, 
     CONSTRAINT t_taxon_information_pk PRIMARY KEY (Rubin_code)
 );
 COMMENT ON COLUMN phytoplankton.t_Taxon_information.Rubin_code IS 'Valid rubin code';
@@ -64,6 +66,7 @@ COMMENT ON COLUMN phytoplankton.t_Taxon_information.Cells_in_colony IS 'Average 
 COMMENT ON COLUMN phytoplankton.t_Taxon_information.Colony_structure IS 'Structure of colony, trichome, cells in cluster, etc';
 COMMENT ON COLUMN phytoplankton.t_Taxon_information.Person IS 'Person that added taxon';
 COMMENT ON COLUMN phytoplankton.t_Taxon_information.Date_registry IS 'Date taxon added';
+
 
 GRANT SELECT,INSERT,UPDATE,DELETE ON phytoplankton.t_Taxon_information TO cc_user;
 
@@ -165,5 +168,17 @@ CALL niva_db_tools.pkg_db_tools.create_sequence_and_triggers('PHYTOPLANKTON', 'T
 CALL niva_db_tools.pkg_db_tools.create_sequence_and_triggers('PHYTOPLANKTON', 'T_PHYTOPLANKTON');
 CALL niva_db_tools.pkg_db_tools.create_sequence_and_triggers('PHYTOPLANKTON', 'T_SAMPLE');
 CALL niva_db_tools.pkg_db_tools.create_sequence_and_triggers('PHYTOPLANKTON', 'T_STATIONS');
-CALL niva_db_tools.pkg_db_tools.create_bir_trigger('PHYTOPLANKTON', 'T_TAXON_INFORMATION');
 CALL niva_db_tools.pkg_db_tools.create_adur_trigger('PHYTOPLANKTON', 'T_TAXON_INFORMATION');
+
+
+CREATE OR REPLACE EDITIONABLE TRIGGER "PHYTOPLANKTON"."TR_BIR_T_TAXON_INFORMATION" 
+  BEFORE INSERT ON PHYTOPLANKTON.T_TAXON_INFORMATION
+    FOR EACH ROW
+  BEGIN
+    IF :NEW.ENTERED_BY IS NULL THEN
+      SELECT USER INTO :NEW.ENTERED_BY FROM DUAL;
+    END IF;
+    IF :NEW.ENTERED_DATE IS NULL THEN
+      SELECT SYSDATE INTO :NEW.ENTERED_DATE FROM DUAL;
+    END IF;
+  END;
