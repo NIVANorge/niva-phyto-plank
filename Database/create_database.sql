@@ -98,11 +98,11 @@ CREATE TABLE phytoplankton.t_Sample
     SampleID number not null,
     StationID number not null,
     SampleDate date,
-    "Depth" varchar2(255),
+    Depths varchar2(255),
     Depth_1 number,
     Depth_2 number,
     Person varchar2(3),
-    "Comment" varchar2(255),
+    Comments varchar2(255),
     CONSTRAINT t_sample_pk PRIMARY KEY (SampleID),
     CONSTRAINT t_sample_fk1 FOREIGN KEY (StationID) REFERENCES phytoplankton.t_Stations (StationID)
 );
@@ -110,11 +110,11 @@ CREATE TABLE phytoplankton.t_Sample
 COMMENT ON COLUMN phytoplankton.t_Sample.SampleID IS 'Sample ID, unique';
 COMMENT ON COLUMN phytoplankton.t_Sample.StationID IS 'ID_Station  from t_Stations';
 COMMENT ON COLUMN phytoplankton.t_Sample.SampleDate IS 'Sample date';
-COMMENT ON COLUMN phytoplankton.t_Sample."Depth" IS 'Sample depth';
+COMMENT ON COLUMN phytoplankton.t_Sample.Depths IS 'Sample depth';
 COMMENT ON COLUMN phytoplankton.t_Sample.Depth_1 IS 'Upper sample depth, for integrated samples commonly 0 m';
 COMMENT ON COLUMN phytoplankton.t_Sample.Depth_2 IS 'Lower sample depth';
 COMMENT ON COLUMN phytoplankton.t_Sample.Person IS 'Initials of the person counting the sample';
-COMMENT ON COLUMN phytoplankton.t_Sample."Comment" IS 'Comments';
+COMMENT ON COLUMN phytoplankton.t_Sample.Comments IS 'Comments';
 
 GRANT SELECT,INSERT,UPDATE,DELETE ON phytoplankton.t_Sample TO cc_user;
 
@@ -126,7 +126,7 @@ CREATE TABLE phytoplankton.t_Phytoplankton
     Taxon varchar2(255),
     Confer number,
     Single_species number,
-    "Number" number,
+    Value number,
     Factor number,
     Taxon_volume number,
     Bio_volume number,
@@ -147,7 +147,7 @@ COMMENT ON COLUMN phytoplankton.t_Phytoplankton.Rubin_code IS 'Rubin code for ea
 COMMENT ON COLUMN phytoplankton.t_Phytoplankton.Taxon IS 'Current name of each taxon';
 COMMENT ON COLUMN phytoplankton.t_Phytoplankton.Confer IS 'Cf';
 COMMENT ON COLUMN phytoplankton.t_Phytoplankton.Single_species IS 'Sp = 1 or Spp = 2';
-COMMENT ON COLUMN phytoplankton.t_Phytoplankton."Number" IS 'Number of counted units, e.g. cells, filaments, coenobia, colonies';
+COMMENT ON COLUMN phytoplankton.t_Phytoplankton.Value IS 'Number of counted units, e.g. cells, filaments, coenobia, colonies';
 COMMENT ON COLUMN phytoplankton.t_Phytoplankton.Factor IS 'Factor for calulating taxon per liter';
 COMMENT ON COLUMN phytoplankton.t_Phytoplankton.Taxon_volume IS 'Volume for each counting unit';
 COMMENT ON COLUMN phytoplankton.t_Phytoplankton.Bio_volume IS 'Volume for each taxon in the sample';
@@ -158,12 +158,12 @@ COMMENT ON COLUMN phytoplankton.t_Phytoplankton.Sample_type IS 'Quick analysis (
 COMMENT ON COLUMN phytoplankton.t_Phytoplankton.Project_type IS 'Project type, surveillance monitoring, research project etc.';
 
 GRANT SELECT,INSERT,UPDATE,DELETE ON phytoplankton.t_Phytoplankton TO cc_user;
+SET DEFINE ON;
 
 CALL niva_db_tools.pkg_db_tools.create_audits_table('PHYTOPLANKTON');
 CALL niva_db_tools.pkg_db_tools.create_sequence_and_triggers('PHYTOPLANKTON', 'T_LAKES');
 CALL niva_db_tools.pkg_db_tools.create_sequence_and_triggers('PHYTOPLANKTON', 'T_PHYTOPLANKTON');
 CALL niva_db_tools.pkg_db_tools.create_sequence_and_triggers('PHYTOPLANKTON', 'T_SAMPLE');
 CALL niva_db_tools.pkg_db_tools.create_sequence_and_triggers('PHYTOPLANKTON', 'T_STATIONS');
-CALL niva_db_tools.pkg_db_tools.create_sequence_and_triggers('PHYTOPLANKTON', 'T_TAXON_INFORMATION');
-
-SET DEFINE ON;
+CALL niva_db_tools.pkg_db_tools.create_bir_trigger('PHYTOPLANKTON', 'T_TAXON_INFORMATION');
+CALL niva_db_tools.pkg_db_tools.create_adur_trigger('PHYTOPLANKTON', 'T_TAXON_INFORMATION');
