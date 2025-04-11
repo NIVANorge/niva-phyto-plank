@@ -34,8 +34,57 @@ Count information. Keep it for now.
 
 ### q_RubinCode_Group
 
-Used to find taxon group. We will use Nivadatabase bio_groups instead. Need a web interface to maintain this.
+Used to find taxon group. We will use Nivadatabase bio_groups instead.
 
 ### 13a_q_PTI
 
 Used to look up computed PTI. We must do the computation elsewhere.
+
+
+## Clean up taxon names
+
+Taxon names are not consistent and should be cleaned up. Either in NIVADATABASE.TAXONOMY_CODES or in the Access database before the import to Oracle.
+
+
+```
+SELECT a.taxonomy_code_id, a.code, a.name AS NIVADATABASE_NAME, b.taxon_name AS ACCESS_NAME, (SELECT count(*) FROM nivadatabase.plankton_sampled_values c WHERE c.taxonomy_code_id = a.taxonomy_code_id) AS ANTALL
+FROM nivadatabase.taxonomy_codes a, phytoplankton.t_taxon_information b 
+WHERE a.taxonomy_domain_id = 2 AND a.code = b.rubin_code AND NOT a.name = b.taxon_name;
+```
+
+## Clean up taxon groups
+
+The groups in t_groups_output should be represented in NIVADATABASE.BIO_GROUPS. And a new field in t_taxon_information should point to the group in NIVADATABASE.BIO_GROUPS.
+
+Some clean up af the groups in Nivadatabase is needed.
+
+```
+UPDATE nivadatabase.bio_groups SET sort_code = '0'||sort_code WHERE group_type_id = 201 AND LENGTH(sort_code)=1;
+
+UPDATE nivadatabase.bio_groups SET sort_code='22' WHERE group_id = 12092;
+
+UPDATE nivadatabase.bio_groups SET group_name='Cyanobacteria (Blågrønnbakterier)' WHERE group_id = 12014;
+
+```
+
+We have some dubletts in the bio_groups_codes table.
+
+```
+SELECT a.code, b.groups_codes_id, d.group_name, c.groups_codes_id, e.group_name 
+FROM nivadatabase.taxonomy_codes a, nivadatabase.bio_groups_codes b, nivadatabase.bio_groups_codes c, nivadatabase.bio_groups d, nivadatabase.bio_groups e
+WHERE a.taxonomy_domain_id = 2 AND a.taxonomy_code_id = b.taxonomy_code_id AND a.taxonomy_code_id = c.taxonomy_code_id AND b.group_id < c.GROUP_ID
+AND b.group_id = d.group_id AND d.group_type_id = 201 AND c.group_id = e.group_id AND e.group_type_id = 201
+ORDER BY a.code;
+
+DELETE FROM nivadatabase.bio_groups_codes WHERE groups_codes_id = 38385;
+```
+
+To set group_id in t_taxon_information we can use the following query:
+
+```
+UPDATE phytoplankton.t_taxon_information 
+SET taxon_group_id = (SELECT a.group_id FROM NIVADATABASE.bio_groups_codes a, nivadatabase.taxonomy_codes b, nivadatabase.bio_groups c
+                         WHERE a.taxonomy_code_id = b.taxonomy_code_id AND b.taxonomy_domain_id = 2 AND a.group_id = c.group_id AND c.group_type_id = 201 AND b.code = rubin_code)
+WHERE rubin_code IN (SELECT a.rubin_code FROM phytoplankton.t_taxon_information a, nivadatabase.taxonomy_codes b, nivadatabase.bio_groups_codes c, nivadatabase.bio_groups d
+	WHERE a.rubin_code = b.code AND b.taxonomy_code_id = c.taxonomy_code_id AND c.group_id = d.group_id AND d.group_type_id = 201);
+```

@@ -48,6 +48,7 @@ CREATE TABLE phytoplankton.t_Taxon_information
 (
     Rubin_code varchar2(255) not null,
     Taxon_name varchar2(255),
+    Taxon_group_id number,
     Taxon_volume_SingleCells number,
     Taxon_volume_Colony number,
     Cells_in_colony number,
@@ -60,6 +61,7 @@ CREATE TABLE phytoplankton.t_Taxon_information
 );
 COMMENT ON COLUMN phytoplankton.t_Taxon_information.Rubin_code IS 'Valid rubin code';
 COMMENT ON COLUMN phytoplankton.t_Taxon_information.Taxon_name IS 'Taxon name for rubin code';
+COMMENT ON COLUMN phytoplankton.t_Taxon_information.Taxon_group_id IS 'Taxon group; ID references bio_groups.group_id in Nivadatabase';
 COMMENT ON COLUMN phytoplankton.t_Taxon_information.Taxon_volume_SingleCells IS 'Volume of taxon';
 COMMENT ON COLUMN phytoplankton.t_Taxon_information.Taxon_volume_Colony IS 'Volume of taxon';
 COMMENT ON COLUMN phytoplankton.t_Taxon_information.Cells_in_colony IS 'Average number of cells in colonies';
@@ -168,7 +170,7 @@ CALL niva_db_tools.pkg_db_tools.create_sequence_and_triggers('PHYTOPLANKTON', 'T
 CALL niva_db_tools.pkg_db_tools.create_sequence_and_triggers('PHYTOPLANKTON', 'T_PHYTOPLANKTON');
 CALL niva_db_tools.pkg_db_tools.create_sequence_and_triggers('PHYTOPLANKTON', 'T_SAMPLE');
 CALL niva_db_tools.pkg_db_tools.create_sequence_and_triggers('PHYTOPLANKTON', 'T_STATIONS');
-CALL niva_db_tools.pkg_db_tools.create_adur_trigger('PHYTOPLANKTON', 'T_TAXON_INFORMATION');
+
 
 
 CREATE OR REPLACE EDITIONABLE TRIGGER "PHYTOPLANKTON"."TR_BIR_T_TAXON_INFORMATION" 
