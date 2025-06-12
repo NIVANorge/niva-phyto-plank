@@ -48,7 +48,6 @@ CREATE TABLE phytoplankton.t_Taxon_information
 (
     Rubin_code varchar2(255) not null,
     Taxon_name varchar2(255),
-    Taxon_group_id number,
     Taxon_volume_SingleCells number,
     Taxon_volume_Colony number,
     Cells_in_colony number,
@@ -56,12 +55,11 @@ CREATE TABLE phytoplankton.t_Taxon_information
     Person varchar2(255),
     Date_registry date,
     ENTERED_BY VARCHAR2(30 BYTE), 
-	ENTERED_DATE DATE, 
+	  ENTERED_DATE DATE, 
     CONSTRAINT t_taxon_information_pk PRIMARY KEY (Rubin_code)
 );
 COMMENT ON COLUMN phytoplankton.t_Taxon_information.Rubin_code IS 'Valid rubin code';
 COMMENT ON COLUMN phytoplankton.t_Taxon_information.Taxon_name IS 'Taxon name for rubin code';
-COMMENT ON COLUMN phytoplankton.t_Taxon_information.Taxon_group_id IS 'Taxon group; ID references bio_groups.group_id in Nivadatabase';
 COMMENT ON COLUMN phytoplankton.t_Taxon_information.Taxon_volume_SingleCells IS 'Volume of taxon';
 COMMENT ON COLUMN phytoplankton.t_Taxon_information.Taxon_volume_Colony IS 'Volume of taxon';
 COMMENT ON COLUMN phytoplankton.t_Taxon_information.Cells_in_colony IS 'Average number of cells in colonies';

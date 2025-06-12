@@ -67,7 +67,7 @@ UPDATE nivadatabase.bio_groups SET group_name='Cyanobacteria (Blågrønnbakterie
 
 ```
 
-We have some dubletts in the bio_groups_codes table.
+We have some duplicates in the bio_groups_codes table.
 
 ```
 SELECT a.code, b.groups_codes_id, d.group_name, c.groups_codes_id, e.group_name 
@@ -79,12 +79,3 @@ ORDER BY a.code;
 DELETE FROM nivadatabase.bio_groups_codes WHERE groups_codes_id = 38385;
 ```
 
-To set group_id in t_taxon_information we can use the following query:
-
-```
-UPDATE phytoplankton.t_taxon_information 
-SET taxon_group_id = (SELECT a.group_id FROM NIVADATABASE.bio_groups_codes a, nivadatabase.taxonomy_codes b, nivadatabase.bio_groups c
-                         WHERE a.taxonomy_code_id = b.taxonomy_code_id AND b.taxonomy_domain_id = 2 AND a.group_id = c.group_id AND c.group_type_id = 201 AND b.code = rubin_code)
-WHERE rubin_code IN (SELECT a.rubin_code FROM phytoplankton.t_taxon_information a, nivadatabase.taxonomy_codes b, nivadatabase.bio_groups_codes c, nivadatabase.bio_groups d
-	WHERE a.rubin_code = b.code AND b.taxonomy_code_id = c.taxonomy_code_id AND c.group_id = d.group_id AND d.group_type_id = 201);
-```
