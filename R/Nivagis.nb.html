@@ -1757,10 +1757,22 @@ display: none;
 <p>Connecting to <a href="https://geoserver.p.niva.no/" class="uri">https://geoserver.p.niva.no/</a></p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShvd3M0UilcbnVzZXIgPC0gYXNrRm9yUGFzc3dvcmQoXCJOSVZBIGJydWtlcm5hdm5cIilcbnB3ZCA8LSBhc2tGb3JQYXNzd29yZChcIk5JVkEgcGFzc29yZFwiKVxud2ZzIDwtIFdGU0NsaWVudCRuZXcoXCJodHRwczovL2dlb3NlcnZlci50Lm5pdmEubm8vd2ZzXCIsIFxuICAgICAgICAgICAgICAgICAgICAgc2VydmljZVZlcnNpb24gPSBcIjIuMC4wXCIsIFxuICAgICAgICAgICAgICAgICAgICAgdXNlciA9IHVzZXIsIFxuICAgICAgICAgICAgICAgICAgICAgcHdkID0gcHdkKVxudHlwZXMgPC0gd2ZzJGdldEZlYXR1cmVUeXBlcygpXG5uYW1lcyA8LSBzYXBwbHkodHlwZXMsIGZ1bmN0aW9uKGZ0KSBmdCRnZXROYW1lKCkpXG5wcmludChuYW1lcylcbmBgYCJ9 -->
-<pre class="r"><code>library(ows4R)
-user &lt;- askForPassword(&quot;NIVA brukernavn&quot;)
-pwd &lt;- askForPassword(&quot;NIVA passord&quot;)
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShvd3M0UilcbmBgYCJ9 -->
+<pre class="r"><code>library(ows4R)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiTG9hZGluZyBJU08gMTkxMzkgWE1MIHNjaGVtYXMuLi5cbkxvYWRpbmcgSVNPIDE5MTE1LTMgWE1MIHNjaGVtYXMuLi5cbkxvYWRpbmcgSVNPIDE5MTM5IGNvZGVsaXN0cy4uLlxuV2FybmluZyBtZXNzYWdlczpcbjE6IHBhY2thZ2Ug4oCYREJJ4oCZIHdhcyBidWlsdCB1bmRlciBSIHZlcnNpb24gNC4zLjMgXG4yOiBwYWNrYWdlIOKAmG9kYmPigJkgd2FzIGJ1aWx0IHVuZGVyIFIgdmVyc2lvbiA0LjMuMyBcbjM6IHBhY2thZ2Ug4oCYcnN0dWRpb2FwaeKAmSB3YXMgYnVpbHQgdW5kZXIgUiB2ZXJzaW9uIDQuMy4zIFxuNDogcGFja2FnZSDigJhkcGx5cuKAmSB3YXMgYnVpbHQgdW5kZXIgUiB2ZXJzaW9uIDQuMy4zIFxuIn0= -->
+<pre><code>Loading ISO 19139 XML schemas...
+Loading ISO 19115-3 XML schemas...
+Loading ISO 19139 codelists...
+Warning messages:
+1: package ‘DBI’ was built under R version 4.3.3 
+2: package ‘odbc’ was built under R version 4.3.3 
+3: package ‘rstudioapi’ was built under R version 4.3.3 
+4: package ‘dplyr’ was built under R version 4.3.3 </code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudXNlciA8LSBhc2tGb3JQYXNzd29yZChcIk5JVkEgdXNlcm5hbWVcIilcbnB3ZCA8LSBhc2tGb3JQYXNzd29yZChcIk5JVkEgcGFzc3dvcmRcIilcbndmcyA8LSBXRlNDbGllbnQkbmV3KFwiaHR0cHM6Ly9nZW9zZXJ2ZXIudC5uaXZhLm5vL3dmc1wiLCBcbiAgICAgICAgICAgICAgICAgICAgIHNlcnZpY2VWZXJzaW9uID0gXCIyLjAuMFwiLCBcbiAgICAgICAgICAgICAgICAgICAgIHVzZXIgPSB1c2VyLCBcbiAgICAgICAgICAgICAgICAgICAgIHB3ZCA9IHB3ZClcbnR5cGVzIDwtIHdmcyRnZXRGZWF0dXJlVHlwZXMoKVxubmFtZXMgPC0gc2FwcGx5KHR5cGVzLCBmdW5jdGlvbihmdCkgZnQkZ2V0TmFtZSgpKVxucHJpbnQobmFtZXMpXG5gYGAifQ== -->
+<pre class="r"><code>user &lt;- askForPassword(&quot;NIVA username&quot;)
+pwd &lt;- askForPassword(&quot;NIVA password&quot;)
 wfs &lt;- WFSClient$new(&quot;https://geoserver.t.niva.no/wfs&quot;, 
                      serviceVersion = &quot;2.0.0&quot;, 
                      user = user, 
@@ -1769,15 +1781,15 @@ types &lt;- wfs$getFeatureTypes()
 names &lt;- sapply(types, function(ft) ft$getName())
 print(names)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiIFsxXSBcIm5vLm5pdmE6bnZlX2VsdmVuZXR0X2xcIiAgICAgICAgICAgICAgICAgICAgICAgICAgXCJuby5uaXZhLnB1YmxpYzptaWxqb2Rpcl9lbHZldmFubmZvcmVrb21zdGVyX2xcIiAgXG4gWzNdIFwibm8ubml2YTpza19meWxrZXJfZlwiICAgICAgICAgICAgICAgICAgICAgICAgICAgICBcIm5vLm5pdmE6bnZlX2lubnNqb19mXCIgICAgICAgICAgICAgICAgICAgICAgICAgICBcbiBbNV0gXCJuby5uaXZhLnB1YmxpYzptaWxqb2Rpcl9pbm5zam92YW5uZm9yZWtvbXN0ZXJfZlwiIFwibm8ubml2YTpza19rb21tdW5lcl9mXCIgICAgICAgICAgICAgICAgICAgICAgICAgIFxuIFs3XSBcIm5vLm5pdmEucHVibGljOm1pbGpvZGlyX2t5c3R2YW5uZm9yZWtvbXN0ZXJfZlwiICAgXCJuby5uaXZhOnNhbXBsaW5nX2ZlYXR1cmVfcG9pbnRzXCIgICAgICAgICAgICAgICAgXG4gWzldIFwibm8ubml2YTpudmVfcmVnaW5lX2ZcIiAgICAgICAgICAgICAgICAgICAgICAgICAgICBcIm5vLm5pdmE6SW50ZXJuX3N0YXRpb25zXCIgICAgICAgICAgICAgICAgICAgICAgICBcblsxMV0gXCJuby5uaXZhOlNUQVRJT05fUE9JTlRTXCIgICAgICAgICAgICAgICAgICAgICAgICAgIFwibm8ubml2YTpvYnNlcnZhdGlvbnMtc3RhdGlvbnNcIiAgICAgICAgICAgICAgICAgIFxuWzEzXSBcIm5vLm5pdmE6dmFubmxva2FsaXRldGVyX3BvbFwiICAgICAgICAgICAgICAgICAgICAgXCJuby5uaXZhOnZhbm5sb2thbGl0ZXRlcl9wa3RcIiAgICAgICAgICAgICAgICAgICAgXG5bMTVdIFwibm8ubml2YS5wdWJsaWM6bnZlX3Zhc3NkcmFnb21yX2ZcIiAgICAgICAgICAgICAgICBcIm5vLm5pdmE6bnZlX3Zhc3NkcmFnb21yX2ZcIiAgICAgICAgICAgICAgICAgICAgICBcbiJ9 -->
-<pre><code> [1] &quot;no.niva:nve_elvenett_l&quot;                          &quot;no.niva.public:miljodir_elvevannforekomster_l&quot;  
- [3] &quot;no.niva:sk_fylker_f&quot;                             &quot;no.niva:nve_innsjo_f&quot;                           
- [5] &quot;no.niva.public:miljodir_innsjovannforekomster_f&quot; &quot;no.niva:sk_kommuner_f&quot;                          
- [7] &quot;no.niva.public:miljodir_kystvannforekomster_f&quot;   &quot;no.niva:sampling_feature_points&quot;                
- [9] &quot;no.niva:nve_regine_f&quot;                            &quot;no.niva:Intern_stations&quot;                        
-[11] &quot;no.niva:STATION_POINTS&quot;                          &quot;no.niva:observations-stations&quot;                  
-[13] &quot;no.niva:vannlokaliteter_pol&quot;                     &quot;no.niva:vannlokaliteter_pkt&quot;                    
-[15] &quot;no.niva.public:nve_vassdragomr_f&quot;                &quot;no.niva:nve_vassdragomr_f&quot;                      </code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiIFsxXSBcIm5vLm5pdmE6bnZlX2VsdmVuZXR0X2xcIiAgICAgICAgICAgICAgICAgICBcIm5vLm5pdmE6bWlsam9kaXJfZWx2ZXZhbm5mb3Jla29tc3Rlcl9sXCIgIFxuIFszXSBcIm5vLm5pdmE6c2tfZnlsa2VyX2ZcIiAgICAgICAgICAgICAgICAgICAgICBcIm5vLm5pdmE6bnZlX2lubnNqb19mXCIgICAgICAgICAgICAgICAgICAgIFxuIFs1XSBcIm5vLm5pdmE6bWlsam9kaXJfaW5uc2pvdmFubmZvcmVrb21zdGVyX2ZcIiBcIm5vLm5pdmE6c2tfa29tbXVuZXJfZlwiICAgICAgICAgICAgICAgICAgIFxuIFs3XSBcIm5vLm5pdmE6bWlsam9kaXJfa3lzdHZhbm5mb3Jla29tc3Rlcl9mXCIgICBcIm5vLm5pdmE6c2FtcGxpbmdfZmVhdHVyZV9wb2ludHNcIiAgICAgICAgIFxuIFs5XSBcIm5vLm5pdmE6bnZlX3JlZ2luZV9mXCIgICAgICAgICAgICAgICAgICAgICBcIm5vLm5pdmE6SW50ZXJuX3N0YXRpb25zXCIgICAgICAgICAgICAgICAgIFxuWzExXSBcIm5vLm5pdmE6U1RBVElPTl9QT0lOVFNcIiAgICAgICAgICAgICAgICAgICBcIm5vLm5pdmE6b2JzZXJ2YXRpb25zLXN0YXRpb25zXCIgICAgICAgICAgIFxuWzEzXSBcIm5vLm5pdmE6dmFubmxva2FsaXRldGVyX3BvbFwiICAgICAgICAgICAgICBcIm5vLm5pdmE6dmFubmxva2FsaXRldGVyX3BrdFwiICAgICAgICAgICAgIFxuWzE1XSBcIm5vLm5pdmE6bnZlX3Zhc3NkcmFnb21yX2ZcIiAgICAgICAgICAgICAgIFxuIn0= -->
+<pre><code> [1] &quot;no.niva:nve_elvenett_l&quot;                   &quot;no.niva:miljodir_elvevannforekomster_l&quot;  
+ [3] &quot;no.niva:sk_fylker_f&quot;                      &quot;no.niva:nve_innsjo_f&quot;                    
+ [5] &quot;no.niva:miljodir_innsjovannforekomster_f&quot; &quot;no.niva:sk_kommuner_f&quot;                   
+ [7] &quot;no.niva:miljodir_kystvannforekomster_f&quot;   &quot;no.niva:sampling_feature_points&quot;         
+ [9] &quot;no.niva:nve_regine_f&quot;                     &quot;no.niva:Intern_stations&quot;                 
+[11] &quot;no.niva:STATION_POINTS&quot;                   &quot;no.niva:observations-stations&quot;           
+[13] &quot;no.niva:vannlokaliteter_pol&quot;              &quot;no.niva:vannlokaliteter_pkt&quot;             
+[15] &quot;no.niva:nve_vassdragomr_f&quot;               </code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
@@ -1787,8 +1799,8 @@ print(names)</code></pre>
 <p>Borrevannet: 013-312-L</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuaW5uc2pvVHlwZSA8LSBGaWx0ZXIoZnVuY3Rpb24oZnQpIGZ0JGdldE5hbWUoKSA9PSBcIm5vLm5pdmEucHVibGljOm1pbGpvZGlyX2lubnNqb3Zhbm5mb3Jla29tc3Rlcl9mXCIsIHR5cGVzKVtbMV1dXG5pbm5zam9GaWVsZHMgPC0gc2FwcGx5KGlubnNqb1R5cGUkZ2V0RGVzY3JpcHRpb24oKSwgZnVuY3Rpb24oZmkpIGZpJGdldE5hbWUoKSlcbnByaW50KGlubnNqb0ZpZWxkcylcbmBgYCJ9 -->
-<pre class="r"><code>innsjoType &lt;- Filter(function(ft) ft$getName() == &quot;no.niva.public:miljodir_innsjovannforekomster_f&quot;, types)[[1]]
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuaW5uc2pvVHlwZSA8LSBGaWx0ZXIoZnVuY3Rpb24oZnQpIGZ0JGdldE5hbWUoKSA9PSBcIm5vLm5pdmE6bWlsam9kaXJfaW5uc2pvdmFubmZvcmVrb21zdGVyX2ZcIiwgdHlwZXMpW1sxXV1cbmlubnNqb0ZpZWxkcyA8LSBzYXBwbHkoaW5uc2pvVHlwZSRnZXREZXNjcmlwdGlvbigpLCBmdW5jdGlvbihmaSkgZmkkZ2V0TmFtZSgpKVxucHJpbnQoaW5uc2pvRmllbGRzKVxuYGBgIn0= -->
+<pre class="r"><code>innsjoType &lt;- Filter(function(ft) ft$getName() == &quot;no.niva:miljodir_innsjovannforekomster_f&quot;, types)[[1]]
 innsjoFields &lt;- sapply(innsjoType$getDescription(), function(fi) fi$getName())
 print(innsjoFields)</code></pre>
 <!-- rnb-source-end -->
@@ -1798,9 +1810,14 @@ print(innsjoFields)</code></pre>
  [9] &quot;kjemisk_presisjon&quot;          &quot;kjemisk_miljomal&quot;           &quot;vanntype&quot;                   &quot;okoregion&quot;                 
 [13] &quot;interkalibreringstype&quot;      &quot;nasjonalvanntype&quot;           &quot;geom&quot;                      </code></pre>
 <!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYm9ycmVGZWF0dXJlIDwtIGlubnNqb1R5cGUkZ2V0RmVhdHVyZXMoZmlsdGVyID0gT0dDRmlsdGVyJG5ldyhQcm9wZXJ0eUlzRXF1YWxUbyRuZXcoXCJ2YW5uZm9yZWtvbXN0aWRcIiwgXCIwMTMtMzEyLUxcIikpKVxucHJpbnQocGFzdGUoXCJWYW5udHlwZVwiLCBib3JyZUZlYXR1cmUkdmFubnR5cGUsIHNlcCA9IFwiID0gXCIpKVxuYGBgIn0= -->
-<pre class="r"><code>borreFeature &lt;- innsjoType$getFeatures(filter = OGCFilter$new(PropertyIsEqualTo$new(&quot;vannforekomstid&quot;, &quot;013-312-L&quot;)))
-print(paste(&quot;Vanntype&quot;, borreFeature$vanntype, sep = &quot; = &quot;))</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYm9ycmVGZWF0dXJlIDwtIGlubnNqb1R5cGUkZ2V0RmVhdHVyZXMoZmlsdGVyID0gT0dDRmlsdGVyJG5ldyhQcm9wZXJ0eUlzRXF1YWxUbyRuZXcoXCJ2YW5uZm9yZWtvbXN0aWRcIiwgXCIwMTMtMzEyLUxcIikpKVxuYGBgIn0= -->
+<pre class="r"><code>borreFeature &lt;- innsjoType$getFeatures(filter = OGCFilter$new(PropertyIsEqualTo$new(&quot;vannforekomstid&quot;, &quot;013-312-L&quot;)))</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiV2FybmluZzogSFRUUCBlcnJvciBjb2RlIDogNDAwIChHREFMIGVycm9yIDEpXG4ifQ== -->
+<pre><code>Warning: HTTP error code : 400 (GDAL error 1)</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucHJpbnQocGFzdGUoXCJWYW5udHlwZVwiLCBib3JyZUZlYXR1cmUkdmFubnR5cGUsIHNlcCA9IFwiID0gXCIpKVxuYGBgIn0= -->
+<pre class="r"><code>print(paste(&quot;Vanntype&quot;, borreFeature$vanntype, sep = &quot; = &quot;))</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiVmFubnR5cGUgPSBMRUwyNDExMlwiXG4ifQ== -->
 <pre><code>[1] &quot;Vanntype = LEL24112&quot;</code></pre>
@@ -1812,18 +1829,20 @@ print(paste(&quot;Vanntype&quot;, borreFeature$vanntype, sep = &quot; = &quot;))
 <h2>Create a map using leaflet</h2>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShsZWFmbGV0KVxubGlicmFyeShzZilcblxubGVhZmxldChzdF90cmFuc2Zvcm0oYm9ycmVGZWF0dXJlLCBjcnMgPSA0MzI2KSkgJT4lXG4gIGFkZFRpbGVzKCkgJT4lXG4gIGFkZFBvbHlnb25zKClcbmBgYCJ9 -->
-<pre class="r"><code>library(leaflet)
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxubGlicmFyeShsZWFmbGV0KVxubGlicmFyeShzZilcblxubGVhZmxldChzdF90cmFuc2Zvcm0oYm9ycmVGZWF0dXJlLCBjcnMgPSA0MzI2KSkgJT4lXG4gIGFkZFRpbGVzKCkgJT4lXG4gIGFkZFBvbHlnb25zKClcbmBgYFxuYGBgIn0= -->
+<pre class="r"><code>```r
+library(leaflet)
 library(sf)
 
 leaflet(st_transform(borreFeature, crs = 4326)) %&gt;%
   addTiles() %&gt;%
   addPolygons()</code></pre>
+<p>```</p>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 </div>
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiTklWQWdpcyIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQoKCiMjIENvbm5lY3Rpb24KCkNvbm5lY3RpbmcgdG8gaHR0cHM6Ly9nZW9zZXJ2ZXIucC5uaXZhLm5vLwoKYGBge3J9CmxpYnJhcnkob3dzNFIpCnVzZXIgPC0gYXNrRm9yUGFzc3dvcmQoIk5JVkEgYnJ1a2VybmF2biIpCnB3ZCA8LSBhc2tGb3JQYXNzd29yZCgiTklWQSBwYXNzb3JkIikKd2ZzIDwtIFdGU0NsaWVudCRuZXcoImh0dHBzOi8vZ2Vvc2VydmVyLnQubml2YS5uby93ZnMiLCAKICAgICAgICAgICAgICAgICAgICAgc2VydmljZVZlcnNpb24gPSAiMi4wLjAiLCAKICAgICAgICAgICAgICAgICAgICAgdXNlciA9IHVzZXIsIAogICAgICAgICAgICAgICAgICAgICBwd2QgPSBwd2QpCnR5cGVzIDwtIHdmcyRnZXRGZWF0dXJlVHlwZXMoKQpuYW1lcyA8LSBzYXBwbHkodHlwZXMsIGZ1bmN0aW9uKGZ0KSBmdCRnZXROYW1lKCkpCnByaW50KG5hbWVzKQoKYGBgCgojIyBRdWVyeSBtaWxqb2Rpcl9pbm5zam92YW5uZm9yZWtvbXN0ZXJfZgoKQm9ycmV2YW5uZXQ6IDAxMy0zMTItTAoKYGBge3J9CmlubnNqb1R5cGUgPC0gRmlsdGVyKGZ1bmN0aW9uKGZ0KSBmdCRnZXROYW1lKCkgPT0gIm5vLm5pdmEucHVibGljOm1pbGpvZGlyX2lubnNqb3Zhbm5mb3Jla29tc3Rlcl9mIiwgdHlwZXMpW1sxXV0KaW5uc2pvRmllbGRzIDwtIHNhcHBseShpbm5zam9UeXBlJGdldERlc2NyaXB0aW9uKCksIGZ1bmN0aW9uKGZpKSBmaSRnZXROYW1lKCkpCnByaW50KGlubnNqb0ZpZWxkcykKYm9ycmVGZWF0dXJlIDwtIGlubnNqb1R5cGUkZ2V0RmVhdHVyZXMoZmlsdGVyID0gT0dDRmlsdGVyJG5ldyhQcm9wZXJ0eUlzRXF1YWxUbyRuZXcoInZhbm5mb3Jla29tc3RpZCIsICIwMTMtMzEyLUwiKSkpCnByaW50KHBhc3RlKCJWYW5udHlwZSIsIGJvcnJlRmVhdHVyZSR2YW5udHlwZSwgc2VwID0gIiA9ICIpKQpgYGAKCiMjIENyZWF0ZSBhIG1hcCB1c2luZyBsZWFmbGV0CgpgYGB7cn0KbGlicmFyeShsZWFmbGV0KQpsaWJyYXJ5KHNmKQoKbGVhZmxldChzdF90cmFuc2Zvcm0oYm9ycmVGZWF0dXJlLCBjcnMgPSA0MzI2KSkgJT4lCiAgYWRkVGlsZXMoKSAlPiUKICBhZGRQb2x5Z29ucygpCmBgYAo=</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiTklWQWdpcyIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQoKCiMjIENvbm5lY3Rpb24KCkNvbm5lY3RpbmcgdG8gaHR0cHM6Ly9nZW9zZXJ2ZXIucC5uaXZhLm5vLwoKYGBge3J9CmxpYnJhcnkob3dzNFIpCndmcyA8LSBXRlNDbGllbnQkbmV3KCJodHRwczovL2dlb3NlcnZlci50Lm5pdmEubm8vd2ZzIiwgCiAgICAgICAgICAgICAgICAgICAgIHNlcnZpY2VWZXJzaW9uID0gIjIuMC4wIiwgCiAgICAgICAgICAgICAgICAgICAgIHVzZXIgPSBhc2tGb3JQYXNzd29yZCgiTklWQSB1c2VybmFtZSIpLCAKICAgICAgICAgICAgICAgICAgICAgcHdkID0gYXNrRm9yUGFzc3dvcmQoIk5JVkEgcGFzc3dvcmQiKSkKdHlwZXMgPC0gd2ZzJGdldEZlYXR1cmVUeXBlcygpCm5hbWVzIDwtIHNhcHBseSh0eXBlcywgZnVuY3Rpb24oZnQpIGZ0JGdldE5hbWUoKSkKcHJpbnQobmFtZXMpCgpgYGAKCiMjIFF1ZXJ5IG1pbGpvZGlyX2lubnNqb3Zhbm5mb3Jla29tc3Rlcl9mCgpCb3JyZXZhbm5ldDogMDEzLTMxMi1MCgpgYGB7cn0KaW5uc2pvVHlwZSA8LSBGaWx0ZXIoZnVuY3Rpb24oZnQpIGZ0JGdldE5hbWUoKSA9PSAibm8ubml2YTptaWxqb2Rpcl9pbm5zam92YW5uZm9yZWtvbXN0ZXJfZiIsIHR5cGVzKVtbMV1dCmlubnNqb0ZpZWxkcyA8LSBzYXBwbHkoaW5uc2pvVHlwZSRnZXREZXNjcmlwdGlvbigpLCBmdW5jdGlvbihmaSkgZmkkZ2V0TmFtZSgpKQpwcmludChpbm5zam9GaWVsZHMpCmJvcnJlRmVhdHVyZSA8LSBpbm5zam9UeXBlJGdldEZlYXR1cmVzKGZpbHRlciA9IE9HQ0ZpbHRlciRuZXcoUHJvcGVydHlJc0VxdWFsVG8kbmV3KCJ2YW5uZm9yZWtvbXN0aWQiLCAiMDEzLTMxMi1MIikpKQpwcmludChwYXN0ZSgiVmFubnR5cGUiLCBib3JyZUZlYXR1cmUkdmFubnR5cGUsIHNlcCA9ICIgPSAiKSkKYGBgCgojIyBDcmVhdGUgYSBtYXAgdXNpbmcgbGVhZmxldAoKYGBge3J9CmxpYnJhcnkobGVhZmxldCkKbGlicmFyeShzZikKCmxlYWZsZXQoc3RfdHJhbnNmb3JtKGJvcnJlRmVhdHVyZSwgY3JzID0gNDMyNikpICU+JQogIGFkZFRpbGVzKHVybFRlbXBsYXRlID0gImh0dHBzOi8vY2FjaGUua2FydHZlcmtldC5uby92MS93bXRzLzEuMC4wL3RvcG8vZGVmYXVsdC93ZWJtZXJjYXRvci97en0ve3l9L3t4fS5wbmciLAogICAgICAgICAgIGF0dHJpYnV0aW9uID0gIsKpIEthcnR2ZXJrZXQiKSAlPiUKICBhZGRQb2x5Z29ucygpCmBgYAo=</div>
 
 
 
