@@ -1,0 +1,25 @@
+---
+title: "Phytoplankton PTI"
+output: html_notebook
+---
+
+```{r}
+
+library(DBI)
+library(odbc)
+library(rstudioapi)
+library(dplyr)
+
+username <- askForPassword("Oracle username")
+password <- askForPassword("Oracle password")
+
+conn <- dbConnect(odbc(), Driver = "/opt/conda/orahome/libsqora.so.12.1", DBQ = "dbora-niva-prod01.niva.corp:1553/NIVABTST", UID = username, PWD = password)
+dbExecute(conn, "alter session set current_schema=PHYTOPLANKTON")
+```
+
+## Query stations
+
+```{r}
+df <- dbGetQuery(conn, "select * from t_stations")
+df %>% select(STATIONID, STATION, LAKEID)
+```

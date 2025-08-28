@@ -1,0 +1,47 @@
+---
+title: "NIVAgis"
+output: html_notebook
+---
+
+
+## Connection
+
+Connecting to https://geoserver.p.niva.no/
+
+```{r}
+library(ows4R)
+user <- askForPassword("NIVA username")
+pwd <- askForPassword("NIVA password")
+wfs <- WFSClient$new("https://geoserver.t.niva.no/wfs", 
+                     serviceVersion = "2.0.0", 
+                     user = user, 
+                     pwd = pwd)
+types <- wfs$getFeatureTypes()
+names <- sapply(types, function(ft) ft$getName())
+print(names)
+
+```
+
+## Query miljodir_innsjovannforekomster_f
+
+Borrevannet: 013-312-L
+
+```{r}
+innsjoType <- Filter(function(ft) ft$getName() == "no.niva.public:miljodir_innsjovannforekomster_f", types)[[1]]
+innsjoFields <- sapply(innsjoType$getDescription(), function(fi) fi$getName())
+print(innsjoFields)
+borreFeature <- innsjoType$getFeatures(filter = OGCFilter$new(PropertyIsEqualTo$new("vannforekomstid", "013-312-L")))
+print(paste("Vanntype", borreFeature$vanntype, sep = " = "))
+```
+
+## Create a map using leaflet
+
+```{r}
+library(leaflet)
+library(sf)
+
+leaflet(st_transform(borreFeature, crs = 4326)) %>%
+  addTiles(urlTemplate = "https://cache.kartverket.no/v1/wmts/1.0.0/topo/default/webmercator/{z}/{y}/{x}.png",
+           attribution = "© Kartverket") %>%
+  addPolygons()
+```
