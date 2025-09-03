@@ -3,13 +3,13 @@ title: "NIVAgis"
 output: html_notebook
 ---
 
-
 ## Connection
 
-Connecting to https://geoserver.p.niva.no/
+Connecting to <https://geoserver.p.niva.no/>
 
 ```{r}
 library(ows4R)
+library(rstudioapi)
 wfs <- WFSClient$new("https://geoserver.t.niva.no/wfs", 
                      serviceVersion = "2.0.0", 
                      user = askForPassword("NIVA username"), 
