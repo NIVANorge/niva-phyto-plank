@@ -10,7 +10,7 @@
 #' @export
 get_plankton_data <- function(sql) {
   if (!exists("con")) {
-    con <- open_connection()
+    con <- open_plankton_connection()
   }
 
   df <- DBI::dbGetQuery(con, sql)
