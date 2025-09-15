@@ -1,15 +1,15 @@
-#' Opens a new connection to the Oracle database
+#' Opens a new connection to the Oracle database setting up PHYTOPLANKTON schema
 #'
 #' @return A DBI connection object
 #'
 #' @details This function will ask for username, password from the user.
-#' It will look for an installed driver, but otherwise try to get the
-#' driver from the environment variable ORACLE_DRIVER_PATH.
-#' If the environment variable is not set, it will try to use a default path
-#' according to Jupyterhub usage.
+#' It will look for an installed driver using NIVA common install routines.
+#' It's also possible to set the driver path with environment variable ORACLE_DRIVER_PATH.
+#' It will connect to Nivadatabase production host, but this could be changed by setting
+#' environment variable ORACLE_DBQ.
 #' @export
 #'
-open_connection <- function() {
+open_plankton_connection <- function() {
   if (!requireNamespace("DBI", quietly = TRUE)) {
     stop("Package DBI needed for this function to work. Please install it.",
          call. = FALSE)
@@ -25,6 +25,7 @@ open_connection <- function() {
 
   # Try to find a driver
   drivers <- odbc::odbcListDrivers()
+  # Look for NIVA default driver name
   driver_name <- "Oracle in OraClient19Home1"
   if (!(driver_name %in% drivers$name)) {
     driver_path <- Sys.getenv("ORACLE_DRIVER_PATH")
@@ -38,10 +39,16 @@ open_connection <- function() {
     driver_name <- driver_path
   }
 
+  # Get DBQ from environment variable or use default
+  dbq <- Sys.getenv("ORACLE_DBQ")
+  if (dbq == "") {
+    dbq <- "dbora-niva-prod01.niva.corp:1555/NIVABPRD"
+  }
+
   # Create connection
   con <- DBI::dbConnect(odbc::odbc(),
                         Driver = driver_name,
-                        DBQ = "dbora-niva-prod01.niva.corp:1553/NIVABTST",
+                        DBQ = dbq,
                         UID = user,
                         PWD = password,
                         encoding = "UTF-8")
