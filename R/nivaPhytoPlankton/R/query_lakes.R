@@ -12,7 +12,7 @@ query_lakes <- function() {
     stop("Package dplyr needed for this function to work. Please install it.",
          call. = FALSE)
   }
-  return(dplyr::tbl(con, "T_LAKES") %>% dplyr::select(LAKEID, LAKE, VANNFOREKOMSTID,
+  return(dplyr::select(dplyr::tbl(con, "T_LAKES"), LAKEID, LAKE, VANNFOREKOMSTID,
                                                        RIVER_BASIN_CODE, LAKE_NUMBER,
                                                        ALTITUDE, MEAN_DEPTH, MAX_DEPTH,
                                                        SURFACE_AREA, LAKE_TYPE, ICTYPEID,

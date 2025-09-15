@@ -11,9 +11,8 @@ query_phytoplanktons <- function() {
     stop("Package dplyr needed for this function to work. Please install it.",
          call. = FALSE)
   }
-  return(dplyr::tbl(con, "T_PHYTOPLANKTON") %>%
-           dplyr::select(PLANKTONID, SAMPLEID, RUBIN_CODE, TAXON,
-                         CONFER, SINGLE_SPECIES, VALUE, FACTOR,
+  return(dplyr::select(dplyr::tbl(con, "T_PHYTOPLANKTON"), PLANKTONID, SAMPLEID, RUBIN_CODE,
+                       TAXON, CONFER, SINGLE_SPECIES, VALUE, FACTOR,
                          TAXON_VOLUME, BIO_VOLUME, COUNTING_DATE,
                          COUNTING_LEVEL, NUMBER_OF_UNITS,
                          SAMPLE_TYPE, PROJECT_TYPE))

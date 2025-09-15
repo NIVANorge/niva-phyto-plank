@@ -11,8 +11,7 @@ query_stations <- function() {
     stop("Package dplyr needed for this function to work. Please install it.",
          call. = FALSE)
   }
-  return(dplyr::tbl(con, "T_STATIONS") %>%
-           dplyr::select(STATIONID, STATION, LAKEID, STASJONSKODE,
+  return(dplyr::select(dplyr::tbl(con, "T_STATIONS"), STATIONID, STATION, LAKEID, STASJONSKODE,
                          ST_CODE, ST_CODE_FAG, LATITUDE, LONGITUDE,
                          COMMENTS))
 }

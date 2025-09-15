@@ -11,7 +11,7 @@ query_samples <- function() {
     stop("Package dplyr needed for this function to work. Please install it.",
          call. = FALSE)
   }
-  return (dplyr::tbl(con, "T_SAMPLE") %>% dplyr::select(SAMPLEID,STATIONID,SAMPLEDATE,
+  return (dplyr::select(dplyr::tbl(con, "T_SAMPLE"), SAMPLEID,STATIONID,SAMPLEDATE,
                                                         DEPTHS,DEPTH_1,DEPTH_2,PERSON,
                                                         COMMENTS))
 }
