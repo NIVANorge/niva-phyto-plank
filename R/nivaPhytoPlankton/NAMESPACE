@@ -3,6 +3,7 @@
 export(get_plankton_data)
 export(join_taxon_groups)
 export(open_plankton_connection)
+export(pivot_samples)
 export(query_lakes)
 export(query_phytoplanktons)
 export(query_samples)

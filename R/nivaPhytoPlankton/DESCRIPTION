@@ -2,7 +2,7 @@ Package: nivaPhytoPlankton
 Title: Reads data from Phytoplankton schema of Nivabase
 Version: 0.0.0.9000
 Authors@R: 
-    person("Roar", "BrC&nden", , "rbr@niva.no", role = c("aut", "cre"))
+    person("Roar", "Brænden", , "rbr@niva.no", role = c("aut", "cre"))
 Description: What the package does (one paragraph).
 License: MIT + file LICENSE
 Encoding: UTF-8
@@ -13,4 +13,5 @@ Imports:
     dplyr,
     dbplyr,
     getPass,
-    odbc
+    odbc,
+    tidyr
