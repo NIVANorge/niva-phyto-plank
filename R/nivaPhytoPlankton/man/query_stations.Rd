@@ -4,7 +4,10 @@
 \alias{query_stations}
 \title{Query the stations from the plankton database}
 \usage{
-query_stations()
+query_stations(...)
+}
+\arguments{
+\item{...}{Optional filter expressions to apply to the query}
 }
 \value{
 A lazy table of the T_STATIONS table

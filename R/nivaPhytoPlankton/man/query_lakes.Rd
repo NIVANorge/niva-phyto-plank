@@ -4,7 +4,10 @@
 \alias{query_lakes}
 \title{Queries the t_lakes table}
 \usage{
-query_lakes()
+query_lakes(...)
+}
+\arguments{
+\item{...}{Optional filter expressions to apply to the query}
 }
 \value{
 A lazy table of the T_LAKES table

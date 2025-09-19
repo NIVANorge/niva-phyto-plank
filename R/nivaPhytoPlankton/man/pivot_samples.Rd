@@ -11,7 +11,7 @@ The resulting data frame has columns for STATIONID, RUBIN_CODE, TAXON, and the p
 pivot_samples(data)
 }
 \arguments{
-\item{data}{A data frame with columns PLANKTONID, SAMPLEDATE, DEPTH1, DEPTH2, and BIO_VOLUME.}
+\item{data}{A data frame with samples, and optionally phytoplanktons.}
 }
 \description{
 Pivot Samples to Wide Format

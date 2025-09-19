@@ -1,7 +1,7 @@
-#' Join taxon groups from Nivadatabase with a Phytoplankton query
-#' @param qryPlankton A lazy table with a RUBIN_CODE column
+#' Join t_stations with LAKEID
+#' @param qry A lazy table with a LAKEID column
 #' @export
-join_taxon_groups <- function(qry) {
+join_stations <- function(qry) {
   if (!exists("con")) {
     con <- open_plankton_connection()
   }
@@ -13,11 +13,11 @@ join_taxon_groups <- function(qry) {
   data_cols <- colnames(qry)
 
   # Check if SAMPLEDATE column exists (indicates samples table is present)
-  if (!"RUBIN_CODE" %in% data_cols) {
-    stop("You're missing a table with RUBIN_CODE to join with the taxon groups.",
+  if (!"LAKEID" %in% data_cols) {
+    stop("You're missing a table with LAKEID to join with t_Stations.",
          call. = FALSE)
   }
-  result <- query_taxon_groups()
+  result <- query_stations()
 
-  return (dplyr::left_join(qry, result, by = dplyr::join_by(RUBIN_CODE)))
+  return (dplyr::left_join(qry, result, by = dplyr::join_by(LAKEID)))
 }

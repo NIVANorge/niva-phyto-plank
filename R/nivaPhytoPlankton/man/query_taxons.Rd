@@ -4,7 +4,10 @@
 \alias{query_taxons}
 \title{Query taxon information from the plankton database}
 \usage{
-query_taxons()
+query_taxons(...)
+}
+\arguments{
+\item{...}{Optional filter expressions to apply to the query}
 }
 \value{
 A lazy table of the T_TAXON_INFORMATION table

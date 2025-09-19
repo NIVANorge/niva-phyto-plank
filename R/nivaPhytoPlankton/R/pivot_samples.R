@@ -11,6 +11,11 @@ pivot_samples <- function(data) {
          call. = FALSE)
   }
   
+  if (!requireNamespace("stringr", quietly = TRUE)) {
+    stop("Package stringr needed for this function to work. Please install it.",
+         call. = FALSE)
+  }
+  
   # Get column names (works for both data frames and lazy tables)
   data_cols <- colnames(data)
   
@@ -29,7 +34,10 @@ pivot_samples <- function(data) {
     data_cols <- colnames(data)
   }
   
-  data <- dplyr::mutate(data, SAMPLEDATE = to_char(SAMPLEDATE, 'dd.mm.yyyy'))
+  # Store original date for sorting, create formatted version for display
+  data <- dplyr::mutate(data, 
+                        SAMPLEDATE_SORT = SAMPLEDATE,
+                        SAMPLEDATE = to_char(SAMPLEDATE, 'dd.mm.yyyy'))
 
   # Build id_cols dynamically based on available columns
   base_id_cols <- c("STATIONID", "RUBIN_CODE", "TAXON")
@@ -39,10 +47,12 @@ pivot_samples <- function(data) {
   available_optional_cols <- optional_cols[optional_cols %in% data_cols]
   id_cols <- c(base_id_cols, available_optional_cols)
 
-  samples_long <- tidyr::pivot_wider(data,
-                                      id_cols = all_of(id_cols),
+  samples_wide <- tidyr::pivot_wider(data,
+                                      id_cols = dplyr::all_of(id_cols),
                                       names_from = c(SAMPLEDATE, DEPTHS),
                                       names_glue = "{SAMPLEDATE} ({DEPTHS})",
                                       values_from = BIO_VOLUME)
-  return(samples_long)
+  
+  # Note: Columns will be in the order produced by pivot_wider (not chronologically sorted)
+  return(samples_wide)
 }

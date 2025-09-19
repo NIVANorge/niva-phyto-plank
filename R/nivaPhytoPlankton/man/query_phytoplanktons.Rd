@@ -4,7 +4,10 @@
 \alias{query_phytoplanktons}
 \title{Query the t_phytoplankton table}
 \usage{
-query_phytoplanktons()
+query_phytoplanktons(...)
+}
+\arguments{
+\item{...}{Optional filter expressions to apply to the query}
 }
 \value{
 A lazy table of the T_PHYTOPLANKTON table
