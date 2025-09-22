@@ -4,7 +4,7 @@
 \alias{join_taxon_groups}
 \title{Join taxon groups from Nivadatabase with a Phytoplankton query}
 \usage{
-join_taxon_groups(qryPlankton)
+join_taxon_groups(qry)
 }
 \arguments{
 \item{qryPlankton}{A lazy table with a RUBIN_CODE column}
