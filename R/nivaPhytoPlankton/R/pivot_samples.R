@@ -34,9 +34,8 @@ pivot_samples <- function(data) {
     data_cols <- colnames(data)
   }
   
-  # Store original date for sorting, create formatted version for display
+  # Store formatted text of sampledate for usage in column names
   data <- dplyr::mutate(data, 
-                        SAMPLEDATE_SORT = SAMPLEDATE,
                         SAMPLEDATE = to_char(SAMPLEDATE, 'dd.mm.yyyy'))
 
   # Build id_cols dynamically based on available columns
@@ -53,6 +52,32 @@ pivot_samples <- function(data) {
                                       names_glue = "{SAMPLEDATE} ({DEPTHS})",
                                       values_from = BIO_VOLUME)
   
-  # Note: Columns will be in the order produced by pivot_wider (not chronologically sorted)
+  # Convert to real data frame from lazy table
+  samples_wide <- dplyr::collect(samples_wide)
+  
+  # Get all column names from samples_wide
+  all_cols <- colnames(samples_wide)
+  
+  # Get id columns that actually exist in samples_wide, sorted by their placement
+  actual_id_cols <- intersect(all_cols, id_cols)
+  
+  # Get the pivoted sample columns
+  pivoted_cols <- setdiff(all_cols, actual_id_cols)
+  
+  # Extract sample dates for sorting
+  # Parse the date from column names (format: "dd.mm.yyyy (depths)")
+  date_parts <- stringr::str_extract(pivoted_cols, "\\d{2}\\.\\d{2}\\.\\d{4}")
+  
+  # Convert to Date objects for proper sorting
+  col_dates <- as.Date(date_parts, format = "%d.%m.%Y")
+  
+  # Create sorting order based on dates
+  sort_order <- order(col_dates)
+  sorted_pivoted_cols <- pivoted_cols[sort_order]
+  
+  # Reorder columns: id columns first (in their actual order), then sorted sample columns
+  final_col_order <- c(actual_id_cols, sorted_pivoted_cols)
+  samples_wide <- samples_wide[, final_col_order, drop = FALSE]
+  
   return(samples_wide)
 }
