@@ -10,15 +10,15 @@ pivot_samples <- function(data) {
     stop("Package tidyr needed for this function to work. Please install it.",
          call. = FALSE)
   }
-  
+
   if (!requireNamespace("stringr", quietly = TRUE)) {
     stop("Package stringr needed for this function to work. Please install it.",
          call. = FALSE)
   }
-  
+
   # Get column names (works for both data frames and lazy tables)
   data_cols <- colnames(data)
-  
+
   # Check if SAMPLEDATE column exists (indicates samples table is present)
   if (!"SAMPLEDATE" %in% data_cols) {
     stop("It looks like the samples table is missing from your data. ",
@@ -26,22 +26,22 @@ pivot_samples <- function(data) {
          "You might need to join with the samples table first using query_samples().",
          call. = FALSE)
   }
-  
+
   # Check if BIO_VOLUME column exists, if not join with phytoplankton data
   if (!"BIO_VOLUME" %in% data_cols) {
     data <- dplyr::inner_join(data, query_phytoplanktons(), by = "SAMPLEID")
     # Update column names after the join
     data_cols <- colnames(data)
   }
-  
+
   # Store formatted text of sampledate for usage in column names
-  data <- dplyr::mutate(data, 
+  data <- dplyr::mutate(data,
                         SAMPLEDATE = to_char(SAMPLEDATE, 'dd.mm.yyyy'))
 
   # Build id_cols dynamically based on available columns
   base_id_cols <- c("STATIONID", "RUBIN_CODE", "TAXON")
-  optional_cols <- c("STATION", "LAKEID", "STASJONSKODE", "LAKE", "VANNFOREKOMSTID", "RIVER_BASIN_CODE", "LAKE_NUMBER")
-  
+  optional_cols <- c("STATION", "LAKEID", "STASJONSKODE", "LAKE", "VANNFOREKOMSTID", "RIVER_BASIN_CODE", "LAKE_NUMBER", "GROUP_NAME", "GROUP_SORT")
+
   # Add optional columns that exist in the data
   available_optional_cols <- optional_cols[optional_cols %in% data_cols]
   id_cols <- c(base_id_cols, available_optional_cols)
@@ -51,33 +51,33 @@ pivot_samples <- function(data) {
                                       names_from = c(SAMPLEDATE, DEPTHS),
                                       names_glue = "{SAMPLEDATE} ({DEPTHS})",
                                       values_from = BIO_VOLUME)
-  
+
   # Convert to real data frame from lazy table
   samples_wide <- dplyr::collect(samples_wide)
-  
+
   # Get all column names from samples_wide
   all_cols <- colnames(samples_wide)
-  
+
   # Get id columns that actually exist in samples_wide, sorted by their placement
   actual_id_cols <- intersect(all_cols, id_cols)
-  
+
   # Get the pivoted sample columns
   pivoted_cols <- setdiff(all_cols, actual_id_cols)
-  
+
   # Extract sample dates for sorting
   # Parse the date from column names (format: "dd.mm.yyyy (depths)")
   date_parts <- stringr::str_extract(pivoted_cols, "\\d{2}\\.\\d{2}\\.\\d{4}")
-  
+
   # Convert to Date objects for proper sorting
   col_dates <- as.Date(date_parts, format = "%d.%m.%Y")
-  
+
   # Create sorting order based on dates
   sort_order <- order(col_dates)
   sorted_pivoted_cols <- pivoted_cols[sort_order]
-  
+
   # Reorder columns: id columns first (in their actual order), then sorted sample columns
   final_col_order <- c(actual_id_cols, sorted_pivoted_cols)
   samples_wide <- samples_wide[, final_col_order, drop = FALSE]
-  
+
   return(samples_wide)
 }
