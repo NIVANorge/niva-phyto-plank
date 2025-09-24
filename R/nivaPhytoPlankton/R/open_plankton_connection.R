@@ -24,8 +24,8 @@ open_plankton_connection <- function() {
 
   # Get DNS from environment variable or use default
   dns <- Sys.getenv("ORACLE_DNS")
-  if (dbs == "") {
-    dbs <- "NIVABASE"
+  if (dns == "") {
+    dns <- "NIVABASE"
   }
 
   # Create connection
