@@ -15,7 +15,6 @@ Opens a new connection to the Oracle database setting up PHYTOPLANKTON schema
 \details{
 This function will ask for username, password from the user.
 It will look for an installed driver using NIVA common install routines.
-It's also possible to set the driver path with environment variable ORACLE_DRIVER_PATH.
 It will connect to Nivadatabase production host, but this could be changed by setting
-environment variable ORACLE_DBQ.
+environment variable ORACLE_DNS.
 }
