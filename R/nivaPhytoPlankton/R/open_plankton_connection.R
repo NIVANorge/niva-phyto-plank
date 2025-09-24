@@ -5,7 +5,7 @@
 #' @details This function will ask for username, password from the user.
 #' It will look for an installed driver using NIVA common install routines.
 #' It will connect to Nivadatabase production host, but this could be changed by setting
-#' environment variable ORACLE_DNS.
+#' environment variable ORACLE_DSN.
 #' @export
 #'
 open_plankton_connection <- function() {
@@ -22,15 +22,15 @@ open_plankton_connection <- function() {
   user <- readline(prompt = "Enter Oracle username: ")
   password <- getPass::getPass("Enter Oracle password: ")
 
-  # Get DNS from environment variable or use default
-  dns <- Sys.getenv("ORACLE_DNS")
-  if (dns == "") {
-    dns <- "NIVABASE"
+  # Get DSN from environment variable or use default
+  dsn <- Sys.getenv("ORACLE_DSN")
+  if (dsn == "") {
+    dsn <- "NIVABASE"
   }
 
   # Create connection
   con <- DBI::dbConnect(odbc::odbc(),
-                        DNS = dns,
+                        DSN = dsn,
                         UID = user,
                         PWD = password,
                         encoding = "UTF-8")
