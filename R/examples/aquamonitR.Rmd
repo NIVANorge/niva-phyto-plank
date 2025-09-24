@@ -1,0 +1,15 @@
+---
+title: "Using library aquamonitR"
+output: html_notebook
+---
+
+
+## Install and load aquamonitR
+
+aquamonitR is installed in niva_datasci_toolkit, and can be loaded directly.
+
+```{r}
+library(aquamonitR)
+```
+
+
