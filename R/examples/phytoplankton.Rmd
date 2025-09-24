@@ -9,8 +9,8 @@ library(DBI)
 library(odbc)
 library(rstudioapi)
 library(dplyr)
-conn <- dbConnect(odbc(), Driver = "/usr/lib/oracle/23/client64/lib/libsqora.so.23.1",
-                  DBQ = "dbora-niva-prod01.niva.corp:1553/NIVABTST", 
+conn <- dbConnect(odbc(),
+                  DSN = "NIVABTST", 
                   UID = askForPassword("Oracle username"), 
                   PWD = askForPassword("Oracle password"))
 dbExecute(conn, "alter session set current_schema=PHYTOPLANKTON")
