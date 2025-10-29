@@ -1,37 +1,33 @@
 ---
 title: "Using the nivaPhytoPlankton library"
-output: html_notebook
+output: html_document
 ---
-
-Opening connection to Nivadatabase with PLANKTON as current schema
 
 ```{r}
 library(nivaPhytoPlankton)
+```
+
+Opening connection to Nivadatabase
+
+```{r}
 Sys.setenv(ORACLE_DSN = "NIVABTST")
 con <- open_plankton_connection()
 ```
 
-Query samples for a known stasjon (STASJONSKODE = MjøsaOPPISKR)
+Query samples for a known STASJONSKODE = MjøsaOPPISKR
 
 ```{r}
 samples <- query_stations(STASJONSKODE == "MjøsaOPPISKR") %>% 
-           join_samples() %>% 
-           select(SAMPLEID, SAMPLEDATE, DEPTHS, PERSON) %>% 
-           arrange(SAMPLEDATE)
+  join_samples() %>% 
+  select(SAMPLEID, SAMPLEDATE, DEPTHS, PERSON) %>% 
+  arrange(SAMPLEDATE)
 View(samples %>% collect())
 ```
 
 Query phytoplankton for given samples in 2020, and pivot with taxon groups
 
 ```{r}
-sampleids <- samples %>% 
-             filter(SAMPLEDATE >= as.Date("2020-01-01") & SAMPLEDATE < as.Date("2021-01-01")) %>% 
-             pull(SAMPLEID)
-
-phytos <- query_samples(SAMPLEID %in% sampleids) %>% 
-          join_phytoplanktons() %>% 
-          join_taxon_groups() %>% 
-          pivot_samples()
-          
+sampleids <- samples %>% filter(SAMPLEDATE >= as.Date("2020-01-01") & SAMPLEDATE < as.Date("2021-01-01")) %>% pull(SAMPLEID)
+phytos <- query_samples(SAMPLEID %in% sampleids) %>% join_phytoplanktons() %>% join_taxon_groups() %>% pivot_samples()
 View(phytos %>% arrange(GROUP_SORT,TAXON))
 ```

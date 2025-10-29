@@ -1757,64 +1757,174 @@ display: none;
 <p>Connecting to <a href="https://geoserver.p.niva.no/" class="uri">https://geoserver.p.niva.no/</a></p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHViR2xpY21GeWVTaHZkM00wVWlsY2JuZG1jeUE4TFNCWFJsTkRiR2xsYm5Ra2JtVjNLRndpYUhSMGNITTZMeTluWlc5elpYSjJaWEl1ZEM1dWFYWmhMbTV2TDNkbWMxd2lMQ0JjYmlBZ0lDQWdJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ0lITmxjblpwWTJWV1pYSnphVzl1SUQwZ1hDSXlMakF1TUZ3aUxDQmNiaUFnSUNBZ0lDQWdJQ0FnSUNBZ0lDQWdJQ0FnSUhWelpYSWdQU0JoYzJ0R2IzSlFZWE56ZDI5eVpDaGNJazVKVmtFZ2RYTmxjbTVoYldWY0lpa3NJRnh1SUNBZ0lDQWdJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ2NIZGtJRDBnWVhOclJtOXlVR0Z6YzNkdmNtUW9YQ0pPU1ZaQklIQmhjM04zYjNKa1hDSXBLVnh1WUdCZ0luMD0gLS0+XG5cbmBgYHJcbmxpYnJhcnkob3dzNFIpXG53ZnMgPC0gV0ZTQ2xpZW50JG5ldyhcImh0dHBzOi8vZ2Vvc2VydmVyLnQubml2YS5uby93ZnNcIiwgXG4gICAgICAgICAgICAgICAgICAgICBzZXJ2aWNlVmVyc2lvbiA9IFwiMi4wLjBcIiwgXG4gICAgICAgICAgICAgICAgICAgICB1c2VyID0gYXNrRm9yUGFzc3dvcmQoXCJOSVZBIHVzZXJuYW1lXCIpLCBcbiAgICAgICAgICAgICAgICAgICAgIHB3ZCA9IGFza0ZvclBhc3N3b3JkKFwiTklWQSBwYXNzd29yZFwiKSlcbmBgYFxuXG48IS0tIHJuYi1zb3VyY2UtZW5kIC0tPlxuIn0= -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShvd3M0UilcbndmcyA8LSBXRlNDbGllbnQkbmV3KFwiaHR0cHM6Ly9nZW9zZXJ2ZXIudC5uaXZhLm5vL3dmc1wiLCBcbiAgICAgICAgICAgICAgICAgICAgIHNlcnZpY2VWZXJzaW9uID0gXCIyLjAuMFwiLCBcbiAgICAgICAgICAgICAgICAgICAgIHVzZXIgPSBhc2tGb3JQYXNzd29yZChcIk5JVkEgdXNlcm5hbWVcIiksIFxuICAgICAgICAgICAgICAgICAgICAgcHdkID0gYXNrRm9yUGFzc3dvcmQoXCJOSVZBIHBhc3N3b3JkXCIpKVxuYGBgIn0= -->
-<pre class="r"><code>library(ows4R)
-wfs &lt;- WFSClient$new(&quot;https://geoserver.t.niva.no/wfs&quot;, 
-                     serviceVersion = &quot;2.0.0&quot;, 
-                     user = askForPassword(&quot;NIVA username&quot;), 
-                     pwd = askForPassword(&quot;NIVA password&quot;))</code></pre>
-<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHViR2xpY21GeWVTaHZkM00wVWlsY2JuZG1jeUE4TFNCWFJsTkRiR2xsYm5Ra2JtVjNLRndpYUhSMGNITTZMeTluWlc5elpYSjJaWEl1ZEM1dWFYWmhMbTV2TDNkbWMxd2lMQ0JjYmlBZ0lDQWdJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ0lITmxjblpwWTJWV1pYSnphVzl1SUQwZ1hDSXlMakF1TUZ3aUxDQmNiaUFnSUNBZ0lDQWdJQ0FnSUNBZ0lDQWdJQ0FnSUhWelpYSWdQU0JoYzJ0R2IzSlFZWE56ZDI5eVpDaGNJazVKVmtFZ2RYTmxjbTVoYldWY0lpa3NJRnh1SUNBZ0lDQWdJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ2NIZGtJRDBnWVhOclJtOXlVR0Z6YzNkdmNtUW9YQ0pPU1ZaQklIQmhjM04zYjNKa1hDSXBLVnh1WUdCZ0luMD0gLS0+XG5cbmBgYHJcbmxpYnJhcnkob3dzNFIpXG53ZnMgPC0gV0ZTQ2xpZW50JG5ldyhcXGh0dHBzOi8vZ2Vvc2VydmVyLnQubml2YS5uby93ZnNcXCwgXG4gICAgICAgICAgICAgICAgICAgICBzZXJ2aWNlVmVyc2lvbiA9IFxcMi4wLjBcXCwgXG4gICAgICAgICAgICAgICAgICAgICB1c2VyID0gYXNrRm9yUGFzc3dvcmQoXFxOSVZBIHVzZXJuYW1lXFwpLCBcbiAgICAgICAgICAgICAgICAgICAgIHB3ZCA9IGFza0ZvclBhc3N3b3JkKFxcTklWQSBwYXNzd29yZFxcKSlcbmBgYFxuXG48IS0tIHJuYi1zb3VyY2UtZW5kIC0tPlxuIn0= -->
+<pre><code>
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShvd3M0UilcbndmcyA8LSBXRlNDbGllbnQkbmV3KFwiaHR0cHM6Ly9nZW9zZXJ2ZXIudC5uaXZhLm5vL3dmc1wiLCBcbiAgICAgICAgICAgICAgICAgICAgIHNlcnZpY2VWZXJzaW9uID0gXCIyLjAuMFwiLCBcbiAgICAgICAgICAgICAgICAgICAgIHVzZXIgPSBhc2tGb3JQYXNzd29yZChcIk5JVkEgdXNlcm5hbWVcIiksIFxuICAgICAgICAgICAgICAgICAgICAgcHdkID0gYXNrRm9yUGFzc3dvcmQoXCJOSVZBIHBhc3N3b3JkXCIpKVxuYGBgIn0= --&gt;
+
+```r
+library(ows4R)
+wfs &lt;- WFSClient$new(\https://geoserver.t.niva.no/wfs\, 
+                     serviceVersion = \2.0.0\, 
+                     user = askForPassword(\NIVA username\), 
+                     pwd = askForPassword(\NIVA password\))
+```
+
+&lt;!-- rnb-source-end --&gt;</code></pre>
 <!-- rnb-output-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiRXJyb3IgaW4gYXNrRm9yUGFzc3dvcmQoXCJOSVZBIHVzZXJuYW1lXCIpIDogXG4gIGNvdWxkIG5vdCBmaW5kIGZ1bmN0aW9uIFwiYXNrRm9yUGFzc3dvcmRcIlxuIn0= -->
-<pre><code>Error in askForPassword(&quot;NIVA username&quot;) : 
-  could not find function &quot;askForPassword&quot;</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-</div>
-<div id="query-miljodir_innsjovannforekomster_f" class="section level2">
-<h2>Query miljodir_innsjovannforekomster_f</h2>
-<p>Borrevannet: 013-312-L</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVhVzV1YzJwdlZIbHdaU0E4TFNCR2FXeDBaWElvWm5WdVkzUnBiMjRvWm5RcElHWjBKR2RsZEU1aGJXVW9LU0E5UFNCY0ltNXZMbTVwZG1FNmJXbHNhbTlrYVhKZmFXNXVjMnB2ZG1GdWJtWnZjbVZyYjIxemRHVnlYMlpjSWl3Z2RIbHdaWE1wVzFzeFhWMWNibWx1Ym5OcWIwWnBaV3hrY3lBOExTQnpZWEJ3Ykhrb2FXNXVjMnB2Vkhsd1pTUm5aWFJFWlhOamNtbHdkR2x2YmlncExDQm1kVzVqZEdsdmJpaG1hU2tnWm1ra1oyVjBUbUZ0WlNncEtWeHVjSEpwYm5Rb2FXNXVjMnB2Um1sbGJHUnpLVnh1WUdCZ0luMD0gLS0+XG5cbmBgYHJcbmlubnNqb1R5cGUgPC0gRmlsdGVyKGZ1bmN0aW9uKGZ0KSBmdCRnZXROYW1lKCkgPT0gXCJuby5uaXZhOm1pbGpvZGlyX2lubnNqb3Zhbm5mb3Jla29tc3Rlcl9mXCIsIHR5cGVzKVtbMV1dXG5pbm5zam9GaWVsZHMgPC0gc2FwcGx5KGlubnNqb1R5cGUkZ2V0RGVzY3JpcHRpb24oKSwgZnVuY3Rpb24oZmkpIGZpJGdldE5hbWUoKSlcbnByaW50KGlubnNqb0ZpZWxkcylcbmBgYFxuXG48IS0tIHJuYi1zb3VyY2UtZW5kIC0tPlxuIn0= -->
+<!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVZR0JnY2x4dWJHbGljbUZ5ZVNodmQzTTBVaWxjYm5kbWN5QThMU0JYUmxORGJHbGxiblFrYm1WM0tGeGNhSFIwY0hNNkx5OW5aVzl6WlhKMlpYSXVkQzV1YVhaaExtNXZMM2RtYzF4Y0xDQmNiaUFnSUNBZ0lDQWdJQ0FnSUNBZ0lDQWdJQ0FnSUhObGNuWnBZMlZXWlhKemFXOXVJRDBnWEZ3eUxqQXVNRnhjTENCY2JpQWdJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ0lDQWdJSFZ6WlhJZ1BTQmhjMnRHYjNKUVlYTnpkMjl5WkNoY1hFNUpWa0VnZFhObGNtNWhiV1ZjWENrc0lGeHVJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ0lDQWdJQ0FnY0hka0lEMGdZWE5yUm05eVVHRnpjM2R2Y21Rb1hGeE9TVlpCSUhCaGMzTjNiM0prWEZ3cEtWeHVZR0JnWEc1Z1lHQWlmUT09IC0tPlxuXG5gYGByXG5gYGByXG5saWJyYXJ5KG93czRSKVxud2ZzIDwtIFdGU0NsaWVudCRuZXcoXFxodHRwczovL2dlb3NlcnZlci50Lm5pdmEubm8vd2ZzXFwsIFxuICAgICAgICAgICAgICAgICAgICAgc2VydmljZVZlcnNpb24gPSBcXDIuMC4wXFwsIFxuICAgICAgICAgICAgICAgICAgICAgdXNlciA9IGFza0ZvclBhc3N3b3JkKFxcTklWQSB1c2VybmFtZVxcKSwgXG4gICAgICAgICAgICAgICAgICAgICBwd2QgPSBhc2tGb3JQYXNzd29yZChcXE5JVkEgcGFzc3dvcmRcXCkpXG5gYGBcbmBgYFxuXG48IS0tIHJuYi1zb3VyY2UtZW5kIC0tPlxuIn0= -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxubGlicmFyeShvd3M0UilcbndmcyA8LSBXRlNDbGllbnQkbmV3KFxcaHR0cHM6Ly9nZW9zZXJ2ZXIudC5uaXZhLm5vL3dmc1xcLCBcbiAgICAgICAgICAgICAgICAgICAgIHNlcnZpY2VWZXJzaW9uID0gXFwyLjAuMFxcLCBcbiAgICAgICAgICAgICAgICAgICAgIHVzZXIgPSBhc2tGb3JQYXNzd29yZChcXE5JVkEgdXNlcm5hbWVcXCksIFxuICAgICAgICAgICAgICAgICAgICAgcHdkID0gYXNrRm9yUGFzc3dvcmQoXFxOSVZBIHBhc3N3b3JkXFwpKVxuYGBgXG5gYGAifQ== -->
+<pre class="r"><code>```r
+library(ows4R)
+wfs &lt;- WFSClient$new(\https://geoserver.t.niva.no/wfs\, 
+                     serviceVersion = \2.0.0\, 
+                     user = askForPassword(\NIVA username\), 
+                     pwd = askForPassword(\NIVA password\))</code></pre>
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+
+&lt;!-- rnb-output-end --&gt;
+
+&lt;!-- rnb-output-begin eyJkYXRhIjoiRXJyb3IgaW4gYXNrRm9yUGFzc3dvcmQoXFxOSVZBIHVzZXJuYW1lXFwpIDogXG4gIGNvdWxkIG5vdCBmaW5kIGZ1bmN0aW9uIFxcYXNrRm9yUGFzc3dvcmRcXFxuIn0= --&gt;
+</code></pre>
+<p>Error in askForPassword(username) : could not find function <br />
+</p>
+<pre><code>
+
+
+&lt;!-- rnb-output-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+## Query miljodir_innsjovannforekomster_f
+
+Borrevannet: 013-312-L
+
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVhVzV1YzJwdlZIbHdaU0E4TFNCR2FXeDBaWElvWm5WdVkzUnBiMjRvWm5RcElHWjBKR2RsZEU1aGJXVW9LU0E5UFNCY0ltNXZMbTVwZG1FNmJXbHNhbTlrYVhKZmFXNXVjMnB2ZG1GdWJtWnZjbVZyYjIxemRHVnlYMlpjSWl3Z2RIbHdaWE1wVzFzeFhWMWNibWx1Ym5OcWIwWnBaV3hrY3lBOExTQnpZWEJ3Ykhrb2FXNXVjMnB2Vkhsd1pTUm5aWFJFWlhOamNtbHdkR2x2YmlncExDQm1kVzVqZEdsdmJpaG1hU2tnWm1ra1oyVjBUbUZ0WlNncEtWeHVjSEpwYm5Rb2FXNXVjMnB2Um1sbGJHUnpLVnh1WUdCZ0luMD0gLS0+XG5cbmBgYHJcbmlubnNqb1R5cGUgPC0gRmlsdGVyKGZ1bmN0aW9uKGZ0KSBmdCRnZXROYW1lKCkgPT0gXFxuby5uaXZhOm1pbGpvZGlyX2lubnNqb3Zhbm5mb3Jla29tc3Rlcl9mXFwsIHR5cGVzKVtbMV1dXG5pbm5zam9GaWVsZHMgPC0gc2FwcGx5KGlubnNqb1R5cGUkZ2V0RGVzY3JpcHRpb24oKSwgZnVuY3Rpb24oZmkpIGZpJGdldE5hbWUoKSlcbnByaW50KGlubnNqb0ZpZWxkcylcbmBgYFxuXG48IS0tIHJuYi1zb3VyY2UtZW5kIC0tPlxuIn0= --&gt;
+</code></pre>
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuaW5uc2pvVHlwZSA8LSBGaWx0ZXIoZnVuY3Rpb24oZnQpIGZ0JGdldE5hbWUoKSA9PSBcIm5vLm5pdmE6bWlsam9kaXJfaW5uc2pvdmFubmZvcmVrb21zdGVyX2ZcIiwgdHlwZXMpW1sxXV1cbmlubnNqb0ZpZWxkcyA8LSBzYXBwbHkoaW5uc2pvVHlwZSRnZXREZXNjcmlwdGlvbigpLCBmdW5jdGlvbihmaSkgZmkkZ2V0TmFtZSgpKVxucHJpbnQoaW5uc2pvRmllbGRzKVxuYGBgIn0= -->
-<pre class="r"><code>innsjoType &lt;- Filter(function(ft) ft$getName() == &quot;no.niva:miljodir_innsjovannforekomster_f&quot;, types)[[1]]
+<pre class="r"><code>innsjoType &lt;- Filter(function(ft) ft$getName() == \no.niva:miljodir_innsjovannforekomster_f\, types)[[1]]
 innsjoFields &lt;- sapply(innsjoType$getDescription(), function(fi) fi$getName())
 print(innsjoFields)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiIFsxXSBcImZpZFwiICAgICAgICAgICAgICAgICAgICAgICAgXCJ2YW5uZm9yZWtvbXN0aWRcIiAgICAgICAgICAgIFwidmFubmZvcmVrb21zdG5hdm5cIiAgICAgICAgICBcIm5hdHVybGlnX3N0ZXJrdF9tb2RpZmlzZXJ0XCJcbiBbNV0gXCJva29sb2dpc2tfdGlsc3RhbmRcIiAgICAgICAgIFwib2tvbG9naXNrX3ByZXNpc2pvblwiICAgICAgICBcIm9rb2xvZ2lza19taWxqb21hbFwiICAgICAgICAgXCJramVtaXNrX3RpbHN0YW5kXCIgICAgICAgICAgXG4gWzldIFwia2plbWlza19wcmVzaXNqb25cIiAgICAgICAgICBcImtqZW1pc2tfbWlsam9tYWxcIiAgICAgICAgICAgXCJ2YW5udHlwZVwiICAgICAgICAgICAgICAgICAgIFwib2tvcmVnaW9uXCIgICAgICAgICAgICAgICAgIFxuWzEzXSBcImludGVya2FsaWJyZXJpbmdzdHlwZVwiICAgICAgXCJuYXNqb25hbHZhbm50eXBlXCIgICAgICAgICAgIFwiZ2VvbVwiICAgICAgICAgICAgICAgICAgICAgIFxuIn0= -->
-<pre><code> [1] &quot;fid&quot;                        &quot;vannforekomstid&quot;            &quot;vannforekomstnavn&quot;          &quot;naturlig_sterkt_modifisert&quot;
- [5] &quot;okologisk_tilstand&quot;         &quot;okologisk_presisjon&quot;        &quot;okologisk_miljomal&quot;         &quot;kjemisk_tilstand&quot;          
- [9] &quot;kjemisk_presisjon&quot;          &quot;kjemisk_miljomal&quot;           &quot;vanntype&quot;                   &quot;okoregion&quot;                 
-[13] &quot;interkalibreringstype&quot;      &quot;nasjonalvanntype&quot;           &quot;geom&quot;                      </code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVZbTl5Y21WR1pXRjBkWEpsSUR3dElHbHVibk5xYjFSNWNHVWtaMlYwUm1WaGRIVnlaWE1vWm1sc2RHVnlJRDBnVDBkRFJtbHNkR1Z5Skc1bGR5aFFjbTl3WlhKMGVVbHpSWEYxWVd4VWJ5UnVaWGNvWENKMllXNXVabTl5Wld0dmJYTjBhV1JjSWl3Z1hDSXdNVE10TXpFeUxVeGNJaWtwS1Z4dVlHQmdJbjA9IC0tPlxuXG5gYGByXG5ib3JyZUZlYXR1cmUgPC0gaW5uc2pvVHlwZSRnZXRGZWF0dXJlcyhmaWx0ZXIgPSBPR0NGaWx0ZXIkbmV3KFByb3BlcnR5SXNFcXVhbFRvJG5ldyhcInZhbm5mb3Jla29tc3RpZFwiLCBcIjAxMy0zMTItTFwiKSkpXG5gYGBcblxuPCEtLSBybmItc291cmNlLWVuZCAtLT5cbiJ9 -->
+<pre><code>
+
+
+&lt;!-- rnb-output-end --&gt;
+
+&lt;!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVZR0JnY2x4dWFXNXVjMnB2Vkhsd1pTQThMU0JHYVd4MFpYSW9ablZ1WTNScGIyNG9ablFwSUdaMEpHZGxkRTVoYldVb0tTQTlQU0JjWEc1dkxtNXBkbUU2Yldsc2FtOWthWEpmYVc1dWMycHZkbUZ1Ym1admNtVnJiMjF6ZEdWeVgyWmNYQ3dnZEhsd1pYTXBXMXN4WFYxY2JtbHVibk5xYjBacFpXeGtjeUE4TFNCellYQndiSGtvYVc1dWMycHZWSGx3WlNSblpYUkVaWE5qY21sd2RHbHZiaWdwTENCbWRXNWpkR2x2YmlobWFTa2dabWtrWjJWMFRtRnRaU2dwS1Z4dWNISnBiblFvYVc1dWMycHZSbWxsYkdSektWeHVZR0JnWEc1Z1lHQWlmUT09IC0tPlxuXG5gYGByXG5gYGByXG5pbm5zam9UeXBlIDwtIEZpbHRlcihmdW5jdGlvbihmdCkgZnQkZ2V0TmFtZSgpID09IFxcbm8ubml2YTptaWxqb2Rpcl9pbm5zam92YW5uZm9yZWtvbXN0ZXJfZlxcLCB0eXBlcylbWzFdXVxuaW5uc2pvRmllbGRzIDwtIHNhcHBseShpbm5zam9UeXBlJGdldERlc2NyaXB0aW9uKCksIGZ1bmN0aW9uKGZpKSBmaSRnZXROYW1lKCkpXG5wcmludChpbm5zam9GaWVsZHMpXG5gYGBcbmBgYFxuXG48IS0tIHJuYi1zb3VyY2UtZW5kIC0tPlxuIn0= --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuaW5uc2pvVHlwZSA8LSBGaWx0ZXIoZnVuY3Rpb24oZnQpIGZ0JGdldE5hbWUoKSA9PSBcXG5vLm5pdmE6bWlsam9kaXJfaW5uc2pvdmFubmZvcmVrb21zdGVyX2ZcXCwgdHlwZXMpW1sxXV1cbmlubnNqb0ZpZWxkcyA8LSBzYXBwbHkoaW5uc2pvVHlwZSRnZXREZXNjcmlwdGlvbigpLCBmdW5jdGlvbihmaSkgZmkkZ2V0TmFtZSgpKVxucHJpbnQoaW5uc2pvRmllbGRzKVxuYGBgXG5gYGAifQ== --&gt;
+
+```r
+```r
+innsjoType &lt;- Filter(function(ft) ft$getName() == \no.niva:miljodir_innsjovannforekomster_f\, types)[[1]]
+innsjoFields &lt;- sapply(innsjoType$getDescription(), function(fi) fi$getName())
+print(innsjoFields)
+```
+```
+
+&lt;!-- rnb-source-end --&gt;
+
+
+&lt;!-- rnb-output-end --&gt;
+
+&lt;!-- rnb-output-begin eyJkYXRhIjoiIFsxXSBcXGZpZFxcICAgICAgICAgICAgICAgICAgICAgICAgXFx2YW5uZm9yZWtvbXN0aWRcXCAgICAgICAgICAgIFxcdmFubmZvcmVrb21zdG5hdm5cXCAgICAgICAgICBcXG5hdHVybGlnX3N0ZXJrdF9tb2RpZmlzZXJ0XFxcbiBbNV0gXFxva29sb2dpc2tfdGlsc3RhbmRcXCAgICAgICAgIFxcb2tvbG9naXNrX3ByZXNpc2pvblxcICAgICAgICBcXG9rb2xvZ2lza19taWxqb21hbFxcICAgICAgICAgXFxramVtaXNrX3RpbHN0YW5kXFwgICAgICAgICAgXG4gWzldIFxca2plbWlza19wcmVzaXNqb25cXCAgICAgICAgICBcXGtqZW1pc2tfbWlsam9tYWxcXCAgICAgICAgICAgXFx2YW5udHlwZVxcICAgICAgICAgICAgICAgICAgIFxcb2tvcmVnaW9uXFwgICAgICAgICAgICAgICAgIFxuWzEzXSBcXGludGVya2FsaWJyZXJpbmdzdHlwZVxcICAgICAgXFxuYXNqb25hbHZhbm50eXBlXFwgICAgICAgICAgIFxcZ2VvbVxcICAgICAgICAgICAgICAgICAgICAgIFxuXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVZbTl5Y21WR1pXRjBkWEpsSUR3dElHbHVibk5xYjFSNWNHVWtaMlYwUm1WaGRIVnlaWE1vWm1sc2RHVnlJRDBnVDBkRFJtbHNkR1Z5Skc1bGR5aFFjbTl3WlhKMGVVbHpSWEYxWVd4VWJ5UnVaWGNvWENKMllXNXVabTl5Wld0dmJYTjBhV1JjSWl3Z1hDSXdNVE10TXpFeUxVeGNJaWtwS1Z4dVlHQmdJbjA9IC0tPlxuXG5gYGByXG5ib3JyZUZlYXR1cmUgPC0gaW5uc2pvVHlwZSRnZXRGZWF0dXJlcyhmaWx0ZXIgPSBPR0NGaWx0ZXIkbmV3KFByb3BlcnR5SXNFcXVhbFRvJG5ldyhcXHZhbm5mb3Jla29tc3RpZFxcLCBcXDAxMy0zMTItTFxcKSkpXG5gYGBcblxuPCEtLSBybmItc291cmNlLWVuZCAtLT5cbiJ9 --&gt;
+</code></pre>
+<p>[1]       _sterkt_modifisert<br />
+[5] _tilstand  _presisjon  _miljomal  _tilstand <br />
+[9] _presisjon  _miljomal     <br />
+[13]      </p>
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYm9ycmVGZWF0dXJlIDwtIGlubnNqb1R5cGUkZ2V0RmVhdHVyZXMoZmlsdGVyID0gT0dDRmlsdGVyJG5ldyhQcm9wZXJ0eUlzRXF1YWxUbyRuZXcoXCJ2YW5uZm9yZWtvbXN0aWRcIiwgXCIwMTMtMzEyLUxcIikpKVxuYGBgIn0= -->
-<pre class="r"><code>borreFeature &lt;- innsjoType$getFeatures(filter = OGCFilter$new(PropertyIsEqualTo$new(&quot;vannforekomstid&quot;, &quot;013-312-L&quot;)))</code></pre>
+<pre class="r"><code>borreFeature &lt;- innsjoType$getFeatures(filter = OGCFilter$new(PropertyIsEqualTo$new(\vannforekomstid\, \013-312-L\)))</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiV2FybmluZzogSFRUUCBlcnJvciBjb2RlIDogNDAwIChHREFMIGVycm9yIDEpXG4ifQ== -->
-<pre><code>Warning: HTTP error code : 400 (GDAL error 1)</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVjSEpwYm5Rb2NHRnpkR1VvWENKV1lXNXVkSGx3WlZ3aUxDQmliM0p5WlVabFlYUjFjbVVrZG1GdWJuUjVjR1VzSUhObGNDQTlJRndpSUQwZ1hDSXBLVnh1WUdCZ0luMD0gLS0+XG5cbmBgYHJcbnByaW50KHBhc3RlKFwiVmFubnR5cGVcIiwgYm9ycmVGZWF0dXJlJHZhbm50eXBlLCBzZXAgPSBcIiA9IFwiKSlcbmBgYFxuXG48IS0tIHJuYi1zb3VyY2UtZW5kIC0tPlxuIn0= -->
+<pre><code>
+
+
+&lt;!-- rnb-output-end --&gt;
+
+&lt;!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVZR0JnY2x4dVltOXljbVZHWldGMGRYSmxJRHd0SUdsdWJuTnFiMVI1Y0dVa1oyVjBSbVZoZEhWeVpYTW9abWxzZEdWeUlEMGdUMGREUm1sc2RHVnlKRzVsZHloUWNtOXdaWEowZVVselJYRjFZV3hVYnlSdVpYY29YRngyWVc1dVptOXlaV3R2YlhOMGFXUmNYQ3dnWEZ3d01UTXRNekV5TFV4Y1hDa3BLVnh1WUdCZ1hHNWdZR0FpZlE9PSAtLT5cblxuYGBgclxuYGBgclxuYm9ycmVGZWF0dXJlIDwtIGlubnNqb1R5cGUkZ2V0RmVhdHVyZXMoZmlsdGVyID0gT0dDRmlsdGVyJG5ldyhQcm9wZXJ0eUlzRXF1YWxUbyRuZXcoXFx2YW5uZm9yZWtvbXN0aWRcXCwgXFwwMTMtMzEyLUxcXCkpKVxuYGBgXG5gYGBcblxuPCEtLSBybmItc291cmNlLWVuZCAtLT5cbiJ9 --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuYm9ycmVGZWF0dXJlIDwtIGlubnNqb1R5cGUkZ2V0RmVhdHVyZXMoZmlsdGVyID0gT0dDRmlsdGVyJG5ldyhQcm9wZXJ0eUlzRXF1YWxUbyRuZXcoXFx2YW5uZm9yZWtvbXN0aWRcXCwgXFwwMTMtMzEyLUxcXCkpKVxuYGBgXG5gYGAifQ== --&gt;
+
+```r
+```r
+borreFeature &lt;- innsjoType$getFeatures(filter = OGCFilter$new(PropertyIsEqualTo$new(\vannforekomstid\, \013-312-L\)))
+```
+```
+
+&lt;!-- rnb-source-end --&gt;
+
+
+&lt;!-- rnb-output-end --&gt;
+
+&lt;!-- rnb-output-begin eyJkYXRhIjoiV2FybmluZzogSFRUUCBlcnJvciBjb2RlIDogNDAwIChHREFMIGVycm9yIDEpXG5cbjwhLS0gcm5iLXNvdXJjZS1iZWdpbiBleUprWVhSaElqb2lZR0JnY2x4dWNISnBiblFvY0dGemRHVW9YQ0pXWVc1dWRIbHdaVndpTENCaWIzSnlaVVpsWVhSMWNtVWtkbUZ1Ym5SNWNHVXNJSE5sY0NBOUlGd2lJRDBnWENJcEtWeHVZR0JnSW4wPSAtLT5cblxuYGBgclxucHJpbnQocGFzdGUoXFxWYW5udHlwZVxcLCBib3JyZUZlYXR1cmUkdmFubnR5cGUsIHNlcCA9IFxcID0gXFwpKVxuYGBgXG5cbjwhLS0gcm5iLXNvdXJjZS1lbmQgLS0+XG4ifQ== --&gt;
+</code></pre>
+<p>Warning: HTTP error code : 400 (GDAL error 1)</p>
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucHJpbnQocGFzdGUoXCJWYW5udHlwZVwiLCBib3JyZUZlYXR1cmUkdmFubnR5cGUsIHNlcCA9IFwiID0gXCIpKVxuYGBgIn0= -->
-<pre class="r"><code>print(paste(&quot;Vanntype&quot;, borreFeature$vanntype, sep = &quot; = &quot;))</code></pre>
+<pre class="r"><code>print(paste(\Vanntype\, borreFeature$vanntype, sep = \ = \))</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiVmFubnR5cGUgPSBMRUwyNDExMlwiXG4ifQ== -->
-<pre><code>[1] &quot;Vanntype = LEL24112&quot;</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-</div>
-<div id="create-a-map-using-leaflet" class="section level2">
-<h2>Create a map using leaflet</h2>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVZR0JnY2x4dWJHbGljbUZ5ZVNoc1pXRm1iR1YwS1Z4dWJHbGljbUZ5ZVNoelppbGNibHh1YkdWaFpteGxkQ2h6ZEY5MGNtRnVjMlp2Y20wb1ltOXljbVZHWldGMGRYSmxMQ0JqY25NZ1BTQTBNekkyS1NrZ0pUNGxYRzRnSUdGa1pGUnBiR1Z6S0NrZ0pUNGxYRzRnSUdGa1pGQnZiSGxuYjI1ektDbGNibUJnWUZ4dVlHQmdJbjA9IC0tPlxuXG5gYGByXG5gYGByXG5saWJyYXJ5KGxlYWZsZXQpXG5saWJyYXJ5KHNmKVxuXG5sZWFmbGV0KHN0X3RyYW5zZm9ybShib3JyZUZlYXR1cmUsIGNycyA9IDQzMjYpKSAlPiVcbiAgYWRkVGlsZXMoKSAlPiVcbiAgYWRkUG9seWdvbnMoKVxuYGBgXG5gYGBcblxuPCEtLSBybmItc291cmNlLWVuZCAtLT5cbiJ9 -->
+<pre><code>
+
+
+&lt;!-- rnb-output-end --&gt;
+
+&lt;!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVZR0JnY2x4dWNISnBiblFvY0dGemRHVW9YRnhXWVc1dWRIbHdaVnhjTENCaWIzSnlaVVpsWVhSMWNtVWtkbUZ1Ym5SNWNHVXNJSE5sY0NBOUlGeGNJRDBnWEZ3cEtWeHVZR0JnWEc1Z1lHQWlmUT09IC0tPlxuXG5gYGByXG5gYGByXG5wcmludChwYXN0ZShcXFZhbm50eXBlXFwsIGJvcnJlRmVhdHVyZSR2YW5udHlwZSwgc2VwID0gXFwgPSBcXCkpXG5gYGBcbmBgYFxuXG48IS0tIHJuYi1zb3VyY2UtZW5kIC0tPlxuIn0= --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxucHJpbnQocGFzdGUoXFxWYW5udHlwZVxcLCBib3JyZUZlYXR1cmUkdmFubnR5cGUsIHNlcCA9IFxcID0gXFwpKVxuYGBgXG5gYGAifQ== --&gt;
+
+```r
+```r
+print(paste(\Vanntype\, borreFeature$vanntype, sep = \ = \))
+```
+```
+
+&lt;!-- rnb-source-end --&gt;
+
+
+&lt;!-- rnb-output-end --&gt;
+
+&lt;!-- rnb-output-begin eyJkYXRhIjoiWzFdIFxcVmFubnR5cGUgPSBMRUwyNDExMlxcXG4ifQ== --&gt;
+
+```
+[1] \Vanntype = LEL24112\
+```
+
+
+
+&lt;!-- rnb-output-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+## Create a map using leaflet
+
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVZR0JnY2x4dWJHbGljbUZ5ZVNoc1pXRm1iR1YwS1Z4dWJHbGljbUZ5ZVNoelppbGNibHh1YkdWaFpteGxkQ2h6ZEY5MGNtRnVjMlp2Y20wb1ltOXljbVZHWldGMGRYSmxMQ0JqY25NZ1BTQTBNekkyS1NrZ0pUNGxYRzRnSUdGa1pGUnBiR1Z6S0NrZ0pUNGxYRzRnSUdGa1pGQnZiSGxuYjI1ektDbGNibUJnWUZ4dVlHQmdJbjA9IC0tPlxuXG5gYGByXG5gYGByXG5saWJyYXJ5KGxlYWZsZXQpXG5saWJyYXJ5KHNmKVxuXG5sZWFmbGV0KHN0X3RyYW5zZm9ybShib3JyZUZlYXR1cmUsIGNycyA9IDQzMjYpKSAlPiVcbiAgYWRkVGlsZXMoKSAlPiVcbiAgYWRkUG9seWdvbnMoKVxuYGBgXG5gYGBcblxuPCEtLSBybmItc291cmNlLWVuZCAtLT5cbiJ9 --&gt;
+</code></pre>
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxubGlicmFyeShsZWFmbGV0KVxubGlicmFyeShzZilcblxubGVhZmxldChzdF90cmFuc2Zvcm0oYm9ycmVGZWF0dXJlLCBjcnMgPSA0MzI2KSkgJT4lXG4gIGFkZFRpbGVzKCkgJT4lXG4gIGFkZFBvbHlnb25zKClcbmBgYFxuYGBgIn0= -->
 <pre class="r"><code>```r
 library(leaflet)
@@ -1823,13 +1933,26 @@ library(sf)
 leaflet(st_transform(borreFeature, crs = 4326)) %&gt;%
   addTiles() %&gt;%
   addPolygons()</code></pre>
-<p>```</p>
+<pre><code>
+&lt;!-- rnb-source-end --&gt;</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVZR0JnY2x4dVlHQmdjbHh1YkdsaWNtRnllU2hzWldGbWJHVjBLVnh1YkdsaWNtRnllU2h6WmlsY2JseHViR1ZoWm14bGRDaHpkRjkwY21GdWMyWnZjbTBvWW05eWNtVkdaV0YwZFhKbExDQmpjbk1nUFNBME16STJLU2tnSlQ0bFhHNGdJR0ZrWkZScGJHVnpLQ2tnSlQ0bFhHNGdJR0ZrWkZCdmJIbG5iMjV6S0NsY2JtQmdZRnh1WUdCZ1hHNWdZR0FpZlE9PSAtLT5cblxuYGBgclxuYGBgclxuYGBgclxubGlicmFyeShsZWFmbGV0KVxubGlicmFyeShzZilcblxubGVhZmxldChzdF90cmFuc2Zvcm0oYm9ycmVGZWF0dXJlLCBjcnMgPSA0MzI2KSkgJT4lXG4gIGFkZFRpbGVzKCkgJT4lXG4gIGFkZFBvbHlnb25zKClcbmBgYFxuYGBgXG5gYGBcblxuPCEtLSBybmItc291cmNlLWVuZCAtLT5cbiJ9 -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuYGBgclxubGlicmFyeShsZWFmbGV0KVxubGlicmFyeShzZilcblxubGVhZmxldChzdF90cmFuc2Zvcm0oYm9ycmVGZWF0dXJlLCBjcnMgPSA0MzI2KSkgJT4lXG4gIGFkZFRpbGVzKCkgJT4lXG4gIGFkZFBvbHlnb25zKClcbmBgYFxuYGBgXG5gYGAifQ== -->
+<pre class="r"><code>```r
+```r
+library(leaflet)
+library(sf)
+
+leaflet(st_transform(borreFeature, crs = 4326)) %&gt;%
+  addTiles() %&gt;%
+  addPolygons()</code></pre>
+<pre><code></code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 </div>
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiTklWQWdpcyIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQoKIyMgQ29ubmVjdGlvbgoKQ29ubmVjdGluZyB0byA8aHR0cHM6Ly9nZW9zZXJ2ZXIucC5uaXZhLm5vLz4KCmBgYHtyfQpsaWJyYXJ5KG93czRSKQpsaWJyYXJ5KHJzdHVkaW9hcGkpCndmcyA8LSBXRlNDbGllbnQkbmV3KCJodHRwczovL2dlb3NlcnZlci50Lm5pdmEubm8vd2ZzIiwgCiAgICAgICAgICAgICAgICAgICAgIHNlcnZpY2VWZXJzaW9uID0gIjIuMC4wIiwgCiAgICAgICAgICAgICAgICAgICAgIHVzZXIgPSBhc2tGb3JQYXNzd29yZCgiTklWQSB1c2VybmFtZSIpLCAKICAgICAgICAgICAgICAgICAgICAgcHdkID0gYXNrRm9yUGFzc3dvcmQoIk5JVkEgcGFzc3dvcmQiKSkKdHlwZXMgPC0gd2ZzJGdldEZlYXR1cmVUeXBlcygpCm5hbWVzIDwtIHNhcHBseSh0eXBlcywgZnVuY3Rpb24oZnQpIGZ0JGdldE5hbWUoKSkKcHJpbnQobmFtZXMpCgpgYGAKCiMjIFF1ZXJ5IG1pbGpvZGlyX2lubnNqb3Zhbm5mb3Jla29tc3Rlcl9mCgpCb3JyZXZhbm5ldDogMDEzLTMxMi1MCgpgYGB7cn0KaW5uc2pvVHlwZSA8LSBGaWx0ZXIoZnVuY3Rpb24oZnQpIGZ0JGdldE5hbWUoKSA9PSAibm8ubml2YTptaWxqb2Rpcl9pbm5zam92YW5uZm9yZWtvbXN0ZXJfZiIsIHR5cGVzKVtbMV1dCmlubnNqb0ZpZWxkcyA8LSBzYXBwbHkoaW5uc2pvVHlwZSRnZXREZXNjcmlwdGlvbigpLCBmdW5jdGlvbihmaSkgZmkkZ2V0TmFtZSgpKQpwcmludChpbm5zam9GaWVsZHMpCmJvcnJlRmVhdHVyZSA8LSBpbm5zam9UeXBlJGdldEZlYXR1cmVzKGZpbHRlciA9IE9HQ0ZpbHRlciRuZXcoUHJvcGVydHlJc0VxdWFsVG8kbmV3KCJ2YW5uZm9yZWtvbXN0aWQiLCAiMDEzLTMxMi1MIikpKQpwcmludChwYXN0ZSgiVmFubnR5cGUiLCBib3JyZUZlYXR1cmUkdmFubnR5cGUsIHNlcCA9ICIgPSAiKSkKYGBgCgojIyBDcmVhdGUgYSBtYXAgdXNpbmcgbGVhZmxldAoKYGBge3J9CmxpYnJhcnkobGVhZmxldCkKbGlicmFyeShzZikKCmxlYWZsZXQoc3RfdHJhbnNmb3JtKGJvcnJlRmVhdHVyZSwgY3JzID0gNDMyNikpICU+JQogIGFkZFRpbGVzKHVybFRlbXBsYXRlID0gImh0dHBzOi8vY2FjaGUua2FydHZlcmtldC5uby92MS93bXRzLzEuMC4wL3RvcG8vZGVmYXVsdC93ZWJtZXJjYXRvci97en0ve3l9L3t4fS5wbmciLAogICAgICAgICAgIGF0dHJpYnV0aW9uID0gIsKpIEthcnR2ZXJrZXQiKSAlPiUKICBhZGRQb2x5Z29ucygpCmBgYAo=</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiTklWQWdpcyIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQoKIyMgQ29ubmVjdGlvbgoKQ29ubmVjdGluZyB0byA8aHR0cHM6Ly9nZW9zZXJ2ZXIucC5uaXZhLm5vLz4KCmBgYHtyfQpsaWJyYXJ5KG93czRSKQpsaWJyYXJ5KHJzdHVkaW9hcGkpCndmcyA8LSBXRlNDbGllbnQkbmV3KCJodHRwczovL2dlb3NlcnZlci5wLm5pdmEubm8vd2ZzIiwgCiAgICAgICAgICAgICAgICAgICAgIHNlcnZpY2VWZXJzaW9uID0gIjIuMC4wIiwgCiAgICAgICAgICAgICAgICAgICAgIHVzZXIgPSBhc2tGb3JQYXNzd29yZCgiTklWQSB1c2VybmFtZSIpLCAKICAgICAgICAgICAgICAgICAgICAgcHdkID0gYXNrRm9yUGFzc3dvcmQoIk5JVkEgcGFzc3dvcmQiKSkKdHlwZXMgPC0gd2ZzJGdldEZlYXR1cmVUeXBlcygpCm5hbWVzIDwtIHNhcHBseSh0eXBlcywgZnVuY3Rpb24oZnQpIGZ0JGdldE5hbWUoKSkKcHJpbnQobmFtZXMpCgpgYGAKCiMjIFF1ZXJ5IG1pbGpvZGlyX2lubnNqb3Zhbm5mb3Jla29tc3Rlcl9mCgpCb3JyZXZhbm5ldDogMDEzLTMxMi1MCgpgYGB7cn0KaW5uc2pvVHlwZSA8LSBGaWx0ZXIoZnVuY3Rpb24oZnQpIGZ0JGdldE5hbWUoKSA9PSAibm8ubml2YTptaWxqb2Rpcl9pbm5zam92YW5uZm9yZWtvbXN0ZXJfZiIsIHR5cGVzKVtbMV1dCmlubnNqb0ZpZWxkcyA8LSBzYXBwbHkoaW5uc2pvVHlwZSRnZXREZXNjcmlwdGlvbigpLCBmdW5jdGlvbihmaSkgZmkkZ2V0TmFtZSgpKQpwcmludChpbm5zam9GaWVsZHMpCmJvcnJlRmVhdHVyZSA8LSBpbm5zam9UeXBlJGdldEZlYXR1cmVzKGZpbHRlciA9IE9HQ0ZpbHRlciRuZXcoUHJvcGVydHlJc0VxdWFsVG8kbmV3KCJ2YW5uZm9yZWtvbXN0aWQiLCAiMDEzLTMxMi1MIikpKQpwcmludChwYXN0ZSgiVmFubnR5cGUiLCBib3JyZUZlYXR1cmUkdmFubnR5cGUsIHNlcCA9ICIgPSAiKSkKYGBgCgojIyBDcmVhdGUgYSBtYXAgdXNpbmcgbGVhZmxldAoKYGBge3J9CmxpYnJhcnkobGVhZmxldCkKbGlicmFyeShzZikKCmxlYWZsZXQoc3RfdHJhbnNmb3JtKGJvcnJlRmVhdHVyZSwgY3JzID0gNDMyNikpICU+JQogIGFkZFRpbGVzKHVybFRlbXBsYXRlID0gImh0dHBzOi8vY2FjaGUua2FydHZlcmtldC5uby92MS93bXRzLzEuMC4wL3RvcG8vZGVmYXVsdC93ZWJtZXJjYXRvci97en0ve3l9L3t4fS5wbmciLAogICAgICAgICAgIGF0dHJpYnV0aW9uID0gIsKpIEthcnR2ZXJrZXQiKSAlPiUKICBhZGRQb2x5Z29ucygpCmBgYAo=</div>
 
 
 
