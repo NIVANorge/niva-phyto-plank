@@ -12,4 +12,11 @@ aquamonitR is installed in niva_datasci_toolkit, and can be loaded directly.
 library(aquamonitR)
 ```
 
+The main purpose of this library would be to query for PTI and water chemistry data from Nivadatabase.
 
+## Connect to AquaMonitor
+```{r}
+token <- login()
+```
+
+## Query PTI data for a project and a known station (STASJONSKODE = MjøsaOPPISKR)

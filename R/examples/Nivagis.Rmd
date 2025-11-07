@@ -3,13 +3,20 @@ title: "NIVAgis"
 output: html_notebook
 ---
 
-## Connection
+The purpose of this notebook is to demonstrate how to connect to NIVA's GeoServer and query Miljødirektoratet's vannforekomster.
+Within this we can get vanntype and other information about the waterbody.
+
+It is also useful for creating maps.
+
+
+## Loading libraries and connect WFS
 
 Connecting to <https://geoserver.p.niva.no/>
 
 ```{r}
 library(ows4R)
 library(rstudioapi)
+library(dplyr)
 wfs <- WFSClient$new("https://geoserver.p.niva.no/wfs", 
                      serviceVersion = "2.0.0", 
                      user = askForPassword("NIVA username"), 
@@ -20,16 +27,16 @@ print(names)
 
 ```
 
-## Query miljodir_innsjovannforekomster_f
+## Query miljodir_innsjovannforekomster_f in vannområde "Horten - Larvik"
 
-Borrevannet: 013-312-L
 
 ```{r}
 innsjoType <- Filter(function(ft) ft$getName() == "no.niva:miljodir_innsjovannforekomster_f", types)[[1]]
 innsjoFields <- sapply(innsjoType$getDescription(), function(fi) fi$getName())
 print(innsjoFields)
-borreFeature <- innsjoType$getFeatures(filter = OGCFilter$new(PropertyIsEqualTo$new("vannforekomstid", "013-312-L")))
-print(paste("Vanntype", borreFeature$vanntype, sep = " = "))
+innsjoFeatures <- innsjoType$getFeatures(filter = OGCFilter$new(PropertyIsEqualTo$new("vannomrade", "Horten - Larvik")))
+innsjoer <- innsjoFeatures %>% select(vannforekomstid,vannforekomstnavn,vanntype)
+print(innsjoer)
 ```
 
 ## Create a map using leaflet
@@ -38,8 +45,16 @@ print(paste("Vanntype", borreFeature$vanntype, sep = " = "))
 library(leaflet)
 library(sf)
 
-leaflet(st_transform(borreFeature, crs = 4326)) %>%
+leaflet(st_transform(innsjoer, crs = 4326)) %>%
   addTiles(urlTemplate = "https://cache.kartverket.no/v1/wmts/1.0.0/topo/default/webmercator/{z}/{y}/{x}.png",
-           attribution = "© Kartverket") %>%
+           attribution = "Kartverket") %>%
   addPolygons()
 ```
+
+## Query AquaMonitor stations in these lakes
+
+```{r}
+
+
+```
+
