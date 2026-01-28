@@ -29,7 +29,7 @@
                 <wps:Input>
                   <ows:Identifier>features</ows:Identifier>
                   <wps:Reference mimeType="text/xml; subtype=wfs-collection/1.1" 
-                                 xlink:href="http://geoserver/wfs?service=WFS&amp;version=2.0.0&amp;request=GetFeature&amp;typeNames=no.niva.public:miljodir_innsjovannforekomster_f&amp;cql_filter=vannforekomstid='002-141-L'" method="GET"/>
+                                 xlink:href="http://geoserver/wfs?service=WFS&amp;version=2.0.0&amp;request=GetFeature&amp;typeNames=no.niva:miljodir_innsjovannforekomster_f&amp;cql_filter=vannforekomstid='002-141-L'" method="GET"/>
                 </wps:Input>
             </wps:DataInputs>
           </wps:Execute>
