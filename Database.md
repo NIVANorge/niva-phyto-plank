@@ -56,7 +56,7 @@ WHERE a.taxonomy_domain_id = 2 AND a.code = b.rubin_code AND NOT a.name = b.taxo
 
 The groups in t_groups_output should be represented in NIVADATABASE.BIO_GROUPS. And a new field in t_taxon_information should point to the group in NIVADATABASE.BIO_GROUPS.
 
-Some clean up af the groups in Nivadatabase is needed.
+Some clean up of the groups in Nivadatabase is needed.
 
 ```
 UPDATE nivadatabase.bio_groups SET sort_code = '0'||sort_code WHERE group_type_id = 201 AND LENGTH(sort_code)=1;
