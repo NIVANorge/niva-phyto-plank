@@ -4,7 +4,7 @@ TEMPORARY TABLESPACE "TEMP";
 
 ALTER USER phytoplankton QUOTA UNLIMITED ON "APPDATA";
 
-CREATE ROLE cc_user;
+CREATE ROLE catcounter_users;
 
 SET DEFINE OFF;
 
@@ -42,7 +42,7 @@ COMMENT ON COLUMN phytoplankton.t_Lakes.Lake_type_code IS 'Lake type, Norwegian 
 COMMENT ON COLUMN phytoplankton.t_Lakes.SMWF IS 'Modified waterbody';
 COMMENT ON COLUMN phytoplankton.t_Lakes.Country IS 'NO is Norwegian lake';
 
-GRANT SELECT,INSERT,UPDATE,DELETE ON phytoplankton.t_lakes TO cc_user;
+GRANT SELECT,INSERT,UPDATE,DELETE ON phytoplankton.t_lakes TO catcounter_users;
 
 CREATE TABLE phytoplankton.t_Taxon_information
 (
@@ -68,7 +68,7 @@ COMMENT ON COLUMN phytoplankton.t_Taxon_information.Person IS 'Person that added
 COMMENT ON COLUMN phytoplankton.t_Taxon_information.Date_registry IS 'Date taxon added';
 
 
-GRANT SELECT,INSERT,UPDATE,DELETE ON phytoplankton.t_Taxon_information TO cc_user;
+GRANT SELECT,INSERT,UPDATE,DELETE ON phytoplankton.t_Taxon_information TO catcounter_users;
 
 CREATE TABLE phytoplankton.t_Stations
 (
@@ -94,7 +94,7 @@ COMMENT ON COLUMN phytoplankton.t_Stations.St_code_fag IS 'Name of the station i
 COMMENT ON COLUMN phytoplankton.t_Stations.Longitude IS 'Longitude, decimal degree';
 COMMENT ON COLUMN phytoplankton.t_Stations.Latitude IS 'Latitude, decimal degree';
 
-GRANT SELECT,INSERT,UPDATE,DELETE ON phytoplankton.t_Stations TO cc_user;
+GRANT SELECT,INSERT,UPDATE,DELETE ON phytoplankton.t_Stations TO catcounter_users;
 
 CREATE TABLE phytoplankton.t_Sample
 (
@@ -119,7 +119,7 @@ COMMENT ON COLUMN phytoplankton.t_Sample.Depth_2 IS 'Lower sample depth';
 COMMENT ON COLUMN phytoplankton.t_Sample.Person IS 'Initials of the person counting the sample';
 COMMENT ON COLUMN phytoplankton.t_Sample.Comments IS 'Comments';
 
-GRANT SELECT,INSERT,UPDATE,DELETE ON phytoplankton.t_Sample TO cc_user;
+GRANT SELECT,INSERT,UPDATE,DELETE ON phytoplankton.t_Sample TO catcounter_users;
 
 CREATE TABLE phytoplankton.t_Phytoplankton
 (
@@ -160,7 +160,7 @@ COMMENT ON COLUMN phytoplankton.t_Phytoplankton.Number_of_units IS 'Number of co
 COMMENT ON COLUMN phytoplankton.t_Phytoplankton.Sample_type IS 'Quick analysis (R), Cyanobacteria (C), normal analysis (tom)';
 COMMENT ON COLUMN phytoplankton.t_Phytoplankton.Project_type IS 'Project type, surveillance monitoring, research project etc.';
 
-GRANT SELECT,INSERT,UPDATE,DELETE ON phytoplankton.t_Phytoplankton TO cc_user;
+GRANT SELECT,INSERT,UPDATE,DELETE ON phytoplankton.t_Phytoplankton TO catcounter_users;
 SET DEFINE ON;
 
 CALL niva_db_tools.pkg_db_tools.create_audits_table('PHYTOPLANKTON');
@@ -183,3 +183,5 @@ CREATE OR REPLACE EDITIONABLE TRIGGER "PHYTOPLANKTON"."TR_BIR_T_TAXON_INFORMATIO
     END IF;
   END;
 /
+
+
