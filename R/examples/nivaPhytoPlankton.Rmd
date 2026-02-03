@@ -10,7 +10,7 @@ library(nivaPhytoPlankton)
 Opening connection to Nivadatabase
 
 ```{r}
-Sys.setenv(ORACLE_DSN = "NIVABTST")
+Sys.setenv(ORACLE_DSN = "NIVABPRD")
 con <- open_plankton_connection()
 ```
 
