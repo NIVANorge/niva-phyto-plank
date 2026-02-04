@@ -5,6 +5,7 @@ output: html_document
 
 ```{r}
 library(nivaPhytoPlankton)
+library(dplyr)
 ```
 
 Opening connection to Nivadatabase
