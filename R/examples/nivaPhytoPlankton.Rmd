@@ -1,3 +1,4 @@
+
 ---
 title: "Using the nivaPhytoPlankton library"
 output: html_document
@@ -5,7 +6,6 @@ output: html_document
 
 ```{r}
 library(nivaPhytoPlankton)
-library(dplyr)
 ```
 
 Opening connection to Nivadatabase
@@ -31,4 +31,50 @@ Query phytoplankton for given samples in 2020, and pivot with taxon groups
 sampleids <- samples %>% filter(SAMPLEDATE >= as.Date("2020-01-01") & SAMPLEDATE < as.Date("2021-01-01")) %>% pull(SAMPLEID)
 phytos <- query_samples(SAMPLEID %in% sampleids) %>% join_phytoplanktons() %>% join_taxon_groups() %>% pivot_samples()
 View(phytos %>% arrange(GROUP_SORT,TAXON))
+```
+
+Query all samples in year 2025 and 
+
+sampleids=
+```{r}
+sampleids <- query_samples() %>% 
+  filter(SAMPLEDATE >= as.Date("2025-01-01") & SAMPLEDATE < as.Date("2026-01-01")) %>%
+  pull(SAMPLEID)
+
+```
+
+Make a big table with: Stations, samples, phytoplankton using the nivaPhytoPlankton library.
+
+```{r}
+samples <- query_stations() %>%
+  join_samples() %>%
+  join_phytoplanktons() %>%
+  filter(SAMPLEID %in% sampleids)
+```
+
+
+
+```{r}
+codes <- big %>% select(RUBIN_CODE) %>% distinct() %>% pull(RUBIN_CODE)
+```
+
+look up latin_name
+```{r}
+library(dbplyr)
+
+taxonomy_codes <- tbl(con, in_schema("NIVADATABASE", "TAXONOMY_CODES"))
+taxonomy <- tbl(con, in_schema("NIVADATABASE", "TAXONOMY"))
+
+big <- samples %>%
+  left_join(taxonomy_codes %>% rename(RUBIN_CODE = CODE), by ="RUBIN_CODE") %>%
+  filter(TAXONOMY_DOMAIN_ID == 2) %>%
+  left_join(taxonomy %>% rename(ACCEPTED_TAXON = LATIN_NAME), by = "NIVA_TAXON_ID") %>%
+  select(STASJONSKODE, SAMPLEDATE, DEPTH_1, DEPTH_2, RUBIN_CODE, TAXON, ACCEPTED_TAXON, VALUE, FACTOR, TAXON_VOLUME, BIO_VOLUME, COUNTING_DATE, PERSON)
+```
+
+Writing to an Excel file.
+
+```{r}
+library(writexl)
+write_xlsx(big %>% collect(), "~/planteplankton 2025.xlsx")
 ```
